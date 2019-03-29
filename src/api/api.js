@@ -68,4 +68,13 @@ export async function getNewsComments(newsId, onS, onF) {
   });
 }
 
+// 推荐相关联的新闻,两个参数，一个是类别，一个是请求新闻个数
+export async function getNewsByColumn(params, onS, onF) {
+  axios.post(Constant.NEWS_GET__NEWS_BY_COLUMN, params).then(res => {
+    onS(res.newsList)
+  }, err => {
+    onF(err)
+  });
+}
+
 

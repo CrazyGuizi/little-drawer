@@ -23,6 +23,7 @@ export const USER_VALIDATE_USERNAME = 'user/validateUsername'
 export const NEWS_GET_NEWS_NAVS = 'news/getNewsNavs'
 export const NEWS_GET_NEWS_LIST = 'news/getNewsList'
 export const NEWS_GET_NEWS_BY_ID = 'news/getNewsById'
+export const NEWS_GET__NEWS_BY_COLUMN = 'news/getNewsByColumn'
 export const NEWS_GET_NEWS_COMMENTS = 'news/getNewsComments'
 export const NEWS_SEARCH_NEWS = 'news/searchNews'
 

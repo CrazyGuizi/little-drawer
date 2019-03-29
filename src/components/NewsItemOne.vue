@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  import {formatDate} from '@/utils/date.js';
   import {getNewsDetail} from "@/utils/func";
 
   export default {

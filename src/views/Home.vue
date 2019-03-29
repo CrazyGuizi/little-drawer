@@ -94,10 +94,8 @@
 
 <script>
 
-  import LinkImage from '@/components/LinkImage.vue'
   import Footer from "@/components/Footer";
   import {log} from '../utils/log-util'
-  // import {log} from "@/utils/log-util";
   import * as Api from '@/api/api'
   import * as Types from '../vuex/types'
 
@@ -133,7 +131,6 @@
     },
     components: {
       Footer,
-      LinkImage
     },
     watch: {
       'account.regUsername': function (newVal, oldVal) {
