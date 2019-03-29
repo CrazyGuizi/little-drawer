@@ -1,10 +1,22 @@
 <template>
-
+  <div>
+    小说
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Novel"
+
+  import {log} from "@/utils/log-util";
+
+  export default {
+        name: "Novel",
+    data() {
+          return {
+            hi:'hell'
+          }
+    },
+      mounted() {
+      }
     }
 </script>
 

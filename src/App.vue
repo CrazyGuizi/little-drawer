@@ -1,33 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">新闻</router-link> |
-      <router-link to="/video">视频</router-link> |
-      <router-link to="/picture">趣图</router-link> |
-      <router-link to="/novel">小说</router-link> |
-      <router-link to="/person">个人</router-link> |
-    </div>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
+<script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  export default {
+    name: 'app',
   }
-}
+</script>
+
+<style lang="scss">
+
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
+
+  .logo {
+    img {
+      width: 48px;
+      height: 48px;
+    }
+
+  }
 </style>
