@@ -9,7 +9,6 @@
         <img id="news-pic" :src="picUrls" width="100" height="100">
       </b-col>
     </b-row>
-    <router-view/>
   </b-container>
 
 </template>
@@ -17,6 +16,9 @@
 <script>
   import {getNewsDetail} from "@/utils/func";
 
+  /**
+   * 一张图
+   */
   export default {
     name: "NewsItemOne",
     props: {

@@ -22,6 +22,7 @@
         <b-col cols="8">
           <div v-for="(news, index) in showList" :key="index">
             <NewsItemOne v-if="news.style == 1" v-bind="news"/>
+            <NewsItemTwo v-else-if="news.style == 2" v-bind="news"/>
             <NewsItemThree v-else v-bind="news"/>
           </div>
 
@@ -42,6 +43,7 @@
 
   import NewsNav from '@/components/NewsNav'
   import NewsItemOne from '@/components/NewsItemOne'
+  import NewsItemTwo from '@/components/NewsItemTwo'
   import NewsItemThree from '@/components/NewsItemThree'
   import LoadMore from '@/components/LoadMore'
 
@@ -61,7 +63,7 @@
       }
     },
     components: {
-      NewsNav, NewsItemOne, NewsItemThree, LoadMore
+      NewsNav, NewsItemOne, NewsItemTwo, NewsItemThree, LoadMore
     },
     mounted() {
       this.$store.dispatch('news/getNewsNavs')

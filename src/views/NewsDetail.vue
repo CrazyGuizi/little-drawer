@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="news-detail">
     <b-container class="pt-4">
       <b-row>
@@ -15,10 +15,14 @@
         <b-col class="col-md-4">
           <b-row>
             <p>相关推荐</p>
-            <span class="refresh">换一换<img   src="@/assets/images/refresh.png"></span>
+            <span class="refresh">换一换<img @click="refreshRecommend" src="@/assets/images/refresh.png"></span>
           </b-row>
           <b-row>
-            <NewsRecommendItem v-for="(news, index) in recommendNewsList" :key="index" v-bind="news"/>
+            <transition name="fade">
+              <span v-if="recommendNewsList.length > 0">
+              <NewsRecommendItem v-for="(news, index) in recommendNewsList" :key="index" v-bind="news"/>
+              </span>
+            </transition>
           </b-row>
         </b-col>
       </b-row>
@@ -40,7 +44,7 @@
     data() {
       return {
         news: null,
-        recommendNewsList:[],
+        recommendNewsList: [],
         comments: []
       }
     },
@@ -61,7 +65,7 @@
         })
 
         // 获取推荐的相关联新闻
-        const p = {column: news.column, count:3}
+        const p = {column: news.column, count: 3}
         await Api.getNewsByColumn(p, recommendNewsList => {
           vm.recommendNewsList = recommendNewsList
         }, errors => {
@@ -71,6 +75,18 @@
         vm.news = '获取新闻失败'
       })
     },
+    methods: {
+      refreshRecommend() {
+        const vm = this
+        vm.recommendNewsList = []
+        const p = {column: this.news.column, count: 3}
+        Api.getNewsByColumn(p, recommendNewsList => {
+          vm.recommendNewsList = recommendNewsList
+        }, errors => {
+          // 获取推荐新闻失败
+        })
+      }
+    }
   }
 </script>
 
@@ -89,6 +105,15 @@
     height: 25px;
     margin-left: 8px;
     cursor: pointer;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+  {
+    opacity: 0;
   }
 
 </style>

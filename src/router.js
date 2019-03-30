@@ -19,7 +19,7 @@ export default new Router({
           component: () => import('./views/News.vue'),
           meta: {
             keepAlive: true
-          },
+          }
         },
         {
           path: '/video',

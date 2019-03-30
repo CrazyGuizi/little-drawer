@@ -15,6 +15,9 @@
 <script>
   import {getNewsDetail} from "@/utils/func";
 
+  /**
+   * 三张图
+   */
   export default {
     name: "NewsItemOne",
     props: {
