@@ -33,4 +33,13 @@ export const NEWS_REPORT_NEWS = 'NEWS_REPORT_NEWS'
 export const NEWS_COMMENT_NEWS = 'NEWS_COMMENT_NEWS'
 
 
+/**
+ * 视频
+ * @type {string}
+ */
+export const VIDEO_SET_INDEX_VIDEOS = 'VIDEO_SET_INDEX_VIDEOS'
+export const VIDEO_SET_VIDEOS = 'VIDEO_SET_VIDEOS'
+export const VIDEO_SET_VIDEO = 'VIDEO_SET_VIDEO'
+
+
 

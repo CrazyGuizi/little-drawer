@@ -6,11 +6,13 @@ Vue.use(Vuex)
 import common from "./model/common.js"
 import user from  './model/user'
 import news from  './model/news'
+import video from  './model/video'
 
 export default new Vuex.Store({
   modules: {
     common,
     user,
-    news
+    news,
+    video
   }
 })

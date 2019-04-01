@@ -15,6 +15,7 @@
 <script>
 
   import * as http from "../api/http";
+  import {DISPATCH_VIDEO_GETINDEXVIDEOS} from "../utils/constant";
 
   export default {
     name: "Video",
@@ -32,11 +33,7 @@
     computed: {
     },
     mounted() {
-      http.get('/news/getNewsList').then(r => {
-        this.msg = r
-      }, e => {
-        this.msg = e
-      })
+      this.$store.dispatch(DISPATCH_VIDEO_GETINDEXVIDEOS)
     }
   }
 </script>

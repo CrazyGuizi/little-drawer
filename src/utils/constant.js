@@ -4,10 +4,8 @@
  * @type {string}
  */
 
-/**
- * localStorage
- * @type {string}
- */
+
+//**************************************************localStorage的key**************************************************
 export const KEY_NEWS_ID = 'KEY_NEWS_ID'
 export const KEY_USER = 'KEY_USER'
 // 本地敏感词
@@ -22,18 +20,26 @@ export const KEY_BACK_SENSITIVE_WORDS = 'KEY_BACK_SENSITIVE_WORDS'
 export const KEY_THE_FIRST_RUN = 'KEY_THE_FIRST_RUN'
 
 
+
+//**************************************************存放一些索引**************************************************
 export const CONSTANT_NEWS = 0
 export const CONSTANT_VIDEO = 1
 export const CONSTANT_PICTURE = 2
 export const CONSTANT_NOVEL = 3
 export const CONSTANT_PERSON = 4
 
+export const CONSTANT_VIDEO_FUNNY_VIDEOS = 0
+export const CONSTANT_VIDEO_GAME_VIDEOS = 1
+export const CONSTANT_VIDEO_LIFE_VIDEOS = 2
+export const CONSTANT_VIDEO_FILM_VIDEOS = 3
+export const CONSTANT_VIDEO_SCIENCE_VIDEOS = 4
+export const CONSTANT_VIDEO_OTHER_VIDEOS = 5
+export const CONSTANT_VIDEO_RECOMMEND_VIDEOS = 6
 
-/**
- * 分发调用的action
- *
- * @type {string}
- */
+
+
+//**************************************************分发调用的action**************************************************
+
 export const NAMESPACE_USER = 'user/'
 export const NAMESPACE_COMMON = 'common/'
 export const NAMESPACE_NEWS = 'news/'
@@ -51,6 +57,10 @@ export const DISPATCH_NEWS_GETNEWSNAVS = 'news/getNewsNavs'
 export const DISPATCH_NEWS_GETNEWSLIST = 'news/getNewsList'
 export const DISPATCH_NEWS_SEARCHNEWS = 'news/searchNews'
 export const DISPATCH_NEWS_CHANGECOLUMN = 'news/changeColumn'
+
+
+// video
+export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
 
 
 

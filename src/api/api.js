@@ -120,3 +120,30 @@ export function getSensitiveWords(onS, onF) {
 }
 
 
+
+//****************************************************视频*****************************************************
+
+export function getIndexVideos(onS, onF) {
+  axios.get(Constant.VIDEO_GET_INDEX_VIDEOS).then(res => {
+    onS(res.indexVideos)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getVideosByType(params, onS, onF) {
+  axios.post(Constant.VIDEO_GET_VIDEOS_BY_TYPE, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getVideosById(params, onS, onF) {
+  axios.post(Constant.VIDEO_GET_VIDEO_BY_ID, params).then(res => {
+    onS(res.video)
+  }, err => {
+    onF(err)
+  });
+}
+
