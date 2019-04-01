@@ -9,13 +9,13 @@
       <router-link to="/picture">趣图</router-link>
       <router-link to="/novel">小说</router-link>
 
-      <b-nav-form id="search">
-        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-      </b-nav-form>
+      <!--<b-nav-form id="search">-->
+        <!--<b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>-->
+        <!--<b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
+      <!--</b-nav-form>-->
 
-      <b-img id="loginImg" v-b-modal.loginRegister v-bind="loginProps" rounded="circle" blank-color="red" alt="登录/注册"/>
-
+      <b-img-lazy id="loginImg" :src="iconUrl"
+                  v-b-modal.loginRegister v-bind="loginProps" rounded="circle" alt="登录/注册"/>
       <!-- The modal -->
       <b-modal id="loginRegister"
                centered
@@ -98,13 +98,15 @@
   import {log} from '../utils/log-util'
   import * as Api from '@/api/api'
   import * as Types from '../vuex/types'
+  import {mapState} from 'vuex'
+  import {NAMESPACE_USER} from "@/utils/constant";
 
   export default {
     name: 'Home',
     data() {
       return {
         loginProps: {
-          blank: true, width: 32, height: 32
+          blank: true, width: 32, height: 32,class: 'm1'
         },
         modalData: {
           headerBgVariant: 'dark',
@@ -152,6 +154,7 @@
       }
     },
     computed: {
+      ...mapState('user',{iconUrl: 'iconUrl'}),
       title() {
         return this.account.isLogin ? '登录' : '注册'
       },
@@ -202,7 +205,7 @@
 
           Api.login(params, data => {
             // 存储
-            this.$store.commit('user/'+ Types.USER_SET_USER, data)
+            this.$store.commit(NAMESPACE_USER+ Types.USER_SET_USER, data)
             vm.account.loginMsg = data
             log('登录成功')
             vm.account.loginStatus = true
@@ -243,7 +246,7 @@
             password:this.account.regPassword,
           }
           Api.register(params, user => {
-            this.$store.commit('user/'+ Types.USER_SET_USER, user)
+            this.$store.commit(NAMESPACE_USER+ Types.USER_SET_USER, user)
 
             log('注册成功')
             this.$refs.loginModalRef.hide()
@@ -306,6 +309,7 @@
   #loginImg {
     cursor: pointer;
     margin-left: 56px;
+    object-fit: cover;
   }
 
   #login-register-container {

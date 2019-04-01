@@ -50,6 +50,13 @@
   import {log} from "@/utils/log-util"
   import * as Types from '@/vuex/types'
   import {mapState,mapMutations, mapActions} from 'vuex'
+  import {
+    DISPATCH_NEWS_CHANGECOLUMN,
+    DISPATCH_NEWS_GETNEWSLIST,
+    DISPATCH_NEWS_GETNEWSNAVS,
+    DISPATCH_NEWS_SEARCHNEWS,
+    NAMESPACE_NEWS
+  } from "@/utils/constant";
 
   export default {
     name: 'News',
@@ -66,9 +73,9 @@
       NewsNav, NewsItemOne, NewsItemTwo, NewsItemThree, LoadMore
     },
     mounted() {
-      this.$store.dispatch('news/getNewsNavs')
-      this.$store.commit('news/' + Types.NEWS_CLEAR_NEWS_LIST)
-      this.$store.dispatch('news/getNewsList', {column: '头条', page: 1})
+      this.$store.dispatch(DISPATCH_NEWS_GETNEWSNAVS)
+      this.$store.commit(NAMESPACE_NEWS + Types.NEWS_CLEAR_NEWS_LIST)
+      this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column: '头条', page: 1})
     },
     computed: {
       ...mapState('news', {
@@ -81,7 +88,7 @@
         if (this.searchWord.trim() == '') {
           this.searchWord = ''
         } else {
-          this.$store.dispatch('news/searchNews', {keyWord: this.searchWord})
+          this.$store.dispatch(DISPATCH_NEWS_SEARCHNEWS, {keyWord: this.searchWord})
         }
       },
       // 改变频道
@@ -90,14 +97,14 @@
         this.isChangingTab = true;
         this.page = 1;
         this.column = column
-        this.$store.dispatch('news/changeColumn', {column:this.column, page:this.page})
+        this.$store.dispatch(DISPATCH_NEWS_CHANGECOLUMN, {column:this.column, page:this.page})
         this.isChangingTab = false;
 
       },
       // 点击加载更多
       loadMore() {
         this.isLoadMore = true;
-        this.$store.dispatch('news/getNewsList', {column:this.column, page:++this.page})
+        this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column:this.column, page:++this.page})
         this.isLoadMore = false;
       }
     }

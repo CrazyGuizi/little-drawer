@@ -3,10 +3,11 @@ import * as Types from '../types'
 import {KEY_USER} from "../../utils/constant";
 
 const state = {
+  id:0,
   nickName: '',
   username: '',
   password: '',
-  imgIcon:'',
+  iconUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
   token: ''
 }
 
@@ -29,18 +30,20 @@ const actions = {
 
 const mutations = {
   [Types.USER_SET_USER](state, user) {
+    state.id = user.id
     state.nickName = user.nickName
     state.username = user.username
     state.password = user.password
-    state.imgIcon = user.imgIcon
+    state.iconUrl = user.iconUrl
     state.token = "online"
     localStorage.setItem(KEY_USER, JSON.stringify(user))
   },
   [Types.USER_CLEAR](state) {
+    state.id = 0
     state.nickName = ''
     state.username = ''
     state.password = ''
-    state.imgIcon = '',
+    state.iconUrl = '',
     state.token = ''
     localStorage.removeItem(KEY_USER)
   }

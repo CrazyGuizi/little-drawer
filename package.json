@@ -10,10 +10,12 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.15",
+    "fastscan": "^1.0.6",
     "http-proxy-middleware": "^0.19.1",
     "qs": "^6.7.0",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

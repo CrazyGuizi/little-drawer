@@ -1,7 +1,48 @@
 import * as axios from './http.js'
 import * as Constant from "./constant";
 
-//*********用户**************
+//****************************************************公共*****************************************************
+export async function getComments(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_COMMENTS, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+// 发表评论
+export async function sendComment(params, onS, onF) {
+  axios.post(Constant.COMMON_SEND_COMMENTS, params).then(res => {
+    onS(res.comment)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+// 发表回复
+export async function sendReply(params, onS, onF) {
+  axios.post(Constant.COMMON_SEND_REPLY, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+// 举报
+export async function report(params, onS, onF) {
+  axios.post(Constant.COMMON_REPORT, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+
+
+
+// ****************************************************用户*****************************************************
 export function login(params, onSuccess, onFail) {
   axios.post(Constant.USER_LOGIN, params).then(res => {
     onSuccess(res.user)
@@ -27,7 +68,7 @@ export function validateUsername(params, onSuccess, onFail) {
 }
 
 
-//*********新闻**************
+//****************************************************新闻*****************************************************
 export function getNewsNavs(onS, onF) {
   axios.get(Constant.NEWS_GET_NEWS_NAVS).then(res => {
     onS(res.navs)
@@ -60,18 +101,19 @@ export async function getNewsById(newsId, onS, onF) {
   });
 }
 
-export async function getNewsComments(newsId, onS, onF) {
-  axios.post(Constant.NEWS_GET_NEWS_COMMENTS, newsId).then(res => {
-    onS(res.comments)
+// 推荐相关联的新闻,两个参数，一个是类别，一个是请求新闻个数
+export async function getNewsByColumn(params, onS, onF) {
+  axios.post(Constant.NEWS_GET__NEWS_BY_COLUMN, params).then(res => {
+    onS(res.newsList)
   }, err => {
     onF(err)
   });
 }
 
-// 推荐相关联的新闻,两个参数，一个是类别，一个是请求新闻个数
-export async function getNewsByColumn(params, onS, onF) {
-  axios.post(Constant.NEWS_GET__NEWS_BY_COLUMN, params).then(res => {
-    onS(res.newsList)
+// 获取敏感词库
+export function getSensitiveWords(onS, onF) {
+  axios.get(Constant.GET_SENSITIVE_WORDS).then(res => {
+    onS(res.words)
   }, err => {
     onF(err)
   });

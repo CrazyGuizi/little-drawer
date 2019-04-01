@@ -8,8 +8,12 @@
           </b-row>
           <hr>
           <b-row class="mt-5">
-            这里是评论区
+            <NewsCommentEditor @commit="sendComment"/>
           </b-row>
+          <hr>
+          <NewsComment class="mt-4 mb-4" v-show="comments != null && comments.length > 0"
+                       v-for="(comment, index) in comments" :key="index"
+                       v-bind="comment" @commit="sendReply" @report="report"/>
         </b-col>
 
         <b-col class="col-md-4">
@@ -33,40 +37,51 @@
 
 <script>
   import {log} from "@/utils/log-util";
-  import {KEY_NEWS_ID} from "../utils/constant";
   import * as Api from '../api/api'
   import NewsRecommendItem from "@/components/NewsRecommendItem";
   import NewsArticle from "../components/NewsArticle";
-
+  import NewsCommentEditor from "../components/NewsCommentEditor";
+  import BaseComment from '../components/BaseComment'
+  import {isContainedSensitiveWord} from "../utils/func";
+  import {KEY_NEWS_ID,DISPATCH_COMMON_GETSENSITIVEWORDS} from "@/utils/constant";
+  import {
+    CONSTANT_NEWS,
+    DISPATCH_COMMON_GETCOMMENTS,
+    DISPATCH_COMMON_SENDCOMMENT, KEY_NEWS_REPLY,
+    KEY_USER,
+    NAMESPACE_USER
+  } from "../utils/constant";
+  import {mapState, mapActions} from 'vuex'
+  import {USER_SET_USER} from "../vuex/types";
   export default {
     name: "NewsDetail",
-    components: {NewsArticle, NewsRecommendItem},
+    components: {NewsCommentEditor, NewsArticle, NewsRecommendItem, 'NewsComment':BaseComment},
     data() {
       return {
-        news: null,
+        news: {},
         recommendNewsList: [],
-        comments: []
       }
     },
-    computed: {},
+    computed:{
+      ...mapState('common',{
+        comments:'comments'
+      })
+    },
     mounted() {
       // 路由跳转打开新窗口的时候参数没有接收到，暂时不知道为什么
+      this.$store.commit(NAMESPACE_USER + USER_SET_USER, JSON.parse(localStorage.getItem(KEY_USER)))
       const newsId = localStorage.getItem(KEY_NEWS_ID)
       const vm = this
       const params = {newsId: newsId}
 
-      Api.getNewsById(params, async news => {
+      Api.getNewsById(params, news => {
         vm.news = news;
-        // 获取新闻后才能获取评论
-        await Api.getNewsComments(params, comments => {
-          vm.comments = comments
-        }, errors => {
-
-        })
+        // 获取新闻后获取评论
+        this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTS, {topicType:0, topicId:newsId})
 
         // 获取推荐的相关联新闻
         const p = {column: news.column, count: 3}
-        await Api.getNewsByColumn(p, recommendNewsList => {
+        Api.getNewsByColumn(p, recommendNewsList => {
           vm.recommendNewsList = recommendNewsList
         }, errors => {
           // 获取推荐新闻失败
@@ -85,6 +100,27 @@
         }, errors => {
           // 获取推荐新闻失败
         })
+      },
+      sendComment(content) {
+        if (isContainedSensitiveWord(content)) {
+          alert('评论内容含有敏感内容，请修改后再发布')
+          return
+        } else {
+          const user = JSON.parse(localStorage.getItem(KEY_USER))
+          const params = {
+            topicType: CONSTANT_NEWS,
+            topicId:this.news.id,
+            userId:user.id,
+            content:content
+          }
+          this.$store.dispatch(DISPATCH_COMMON_SENDCOMMENT, params)
+        }
+      },
+      sendReply(data) {
+        console.log(JSON.parse(localStorage.getItem(KEY_NEWS_REPLY)))
+      },
+      report() {
+        alert('举报')
       }
     }
   }

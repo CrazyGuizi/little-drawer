@@ -7,6 +7,18 @@ export const BASE_URL = 'http://192.168.43.3:8080'
 export const TIME_OUT = 10000
 export const SUCCESS = 0
 
+
+/**
+ * 公共
+ * @type {string}
+ */
+export const COMMON_GET_COMMENTS = 'common/getComments'
+export const COMMON_SEND_COMMENTS = 'common/sendComment'
+export const COMMON_SEND_REPLY = 'common/sendReply'
+// 举报
+export const COMMON_REPORT = 'common/report'
+
+
 /**
  * 用户
  * @type {string}
@@ -24,7 +36,9 @@ export const NEWS_GET_NEWS_NAVS = 'news/getNewsNavs'
 export const NEWS_GET_NEWS_LIST = 'news/getNewsList'
 export const NEWS_GET_NEWS_BY_ID = 'news/getNewsById'
 export const NEWS_GET__NEWS_BY_COLUMN = 'news/getNewsByColumn'
-export const NEWS_GET_NEWS_COMMENTS = 'news/getNewsComments'
 export const NEWS_SEARCH_NEWS = 'news/searchNews'
+
+// 获取敏感词库
+export const GET_SENSITIVE_WORDS = 'getSensitiveWords'
 
 
