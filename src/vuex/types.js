@@ -14,6 +14,7 @@ export const COMMON_ADD_REPLY = 'COMMON_ADD_REPLY'
  * @type {string}
  */
 export const USER_SET_USER = 'USER_SET_USER'
+export const USER_GET_USER_FROM_LOCAL = 'USER_GET_USER_FROM_LOCAL'
 export const USER_CLEAR = 'USER_CLEAR'
 
 

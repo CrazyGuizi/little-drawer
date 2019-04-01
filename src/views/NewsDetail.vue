@@ -8,7 +8,7 @@
           </b-row>
           <hr>
           <b-row class="mt-5">
-            <NewsCommentEditor @commit="sendComment"/>
+            <NewsCommentEditor ref="refNewsCommentEditor" @commit="sendComment"/>
           </b-row>
           <hr>
           <NewsComment class="mt-4 mb-4" v-show="comments != null && comments.length > 0"
@@ -114,6 +114,7 @@
             content:content
           }
           this.$store.dispatch(DISPATCH_COMMON_SENDCOMMENT, params)
+          this.$refs.refNewsCommentEditor.content = ''
         }
       },
       sendReply(data) {

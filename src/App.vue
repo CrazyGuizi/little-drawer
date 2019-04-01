@@ -7,6 +7,8 @@
 <script>
 
   import {DISPATCH_COMMON_GETSENSITIVEWORDS, KEY_THE_FIRST_RUN} from "@/utils/constant";
+  import {NAMESPACE_USER} from "./utils/constant";
+  import {USER_GET_USER_FROM_LOCAL} from "./vuex/types";
 
   export default {
     name: 'app',
@@ -19,6 +21,7 @@
       //   // localStorage.setItem(KEY_LOCAL_SENSITIVE_WORDS, JSON.stringify(words))
       //   this.$store.dispatch(DISPATCH_COMMON_GETSENSITIVEWORDS)
       // }
+      this.$store.commit(NAMESPACE_USER+ USER_GET_USER_FROM_LOCAL)
     }
   }
 </script>

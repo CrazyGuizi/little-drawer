@@ -46,6 +46,20 @@ const mutations = {
     state.iconUrl = '',
     state.token = ''
     localStorage.removeItem(KEY_USER)
+  },
+  [Types.USER_GET_USER_FROM_LOCAL](state) {
+    const s = localStorage.getItem(KEY_USER);
+    if (s == '' && state.username == '') {
+      return
+    }
+
+    const  user = JSON.parse(s)
+    state.id = user.id
+    state.nickName = user.nickName
+    state.username = user.username
+    state.password = user.password
+    state.iconUrl = user.iconUrl
+    state.token = "online"
   }
 }
 

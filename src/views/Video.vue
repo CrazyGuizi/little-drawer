@@ -1,7 +1,15 @@
 <template>
-  <div>
-    <p>{{msg}}</p>
-  </div>
+  <b-container>
+    <b-row>
+      <p>推荐视频</p>
+      <span>刷新</span>
+    </b-row>
+    <b-row>
+      <b-col class="col-md-4">hahha</b-col>
+      <b-col class="col-md-4">hahha</b-col>
+      <b-col class="col-md-4">hahha</b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

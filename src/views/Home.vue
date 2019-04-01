@@ -14,8 +14,17 @@
         <!--<b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
       <!--</b-nav-form>-->
 
-      <b-img-lazy id="loginImg" :src="iconUrl"
+      <b-img-lazy v-if="iconUrl == defaultIcon" class="loginImg" :src="iconUrl"
                   v-b-modal.loginRegister v-bind="loginProps" rounded="circle" alt="登录/注册"/>
+
+      <b-img v-else class="loginImg" :src="iconUrl"
+                  @click="toPerson" v-bind="loginProps" rounded="circle" alt="个人中心"/>
+
+      <!--<router-link v-else to="/person" class="router-person">-->
+        <!--<b-img-lazy  :src="iconUrl"-->
+                     <!--v-bind="loginProps" rounded="circle" alt="个人中心"/>-->
+      <!--</router-link>-->
+
       <!-- The modal -->
       <b-modal id="loginRegister"
                centered
@@ -106,8 +115,9 @@
     data() {
       return {
         loginProps: {
-          blank: true, width: 32, height: 32,class: 'm1'
+          width: 32, height: 32,class: 'm1'
         },
+        defaultIcon:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
         modalData: {
           headerBgVariant: 'dark',
           headerTextVariant: 'light',
@@ -210,7 +220,7 @@
             log('登录成功')
             vm.account.loginStatus = true
             this.$refs.loginModalRef.hide()
-            this.$router.push('/person')
+            // this.$router.push('/person')
           }, errors => {
             log('账号密码出错')
             vm.account.loginStatus = false
@@ -256,6 +266,9 @@
           })
         }
       },
+      toPerson() {
+        this.$router.push({path: '/person'})
+      }
     }
   }
 </script>
@@ -306,7 +319,17 @@
     left: 5px;
   }
 
-  #loginImg {
+  .router-person {
+    display: inline-block;
+    margin-left: 600px;
+  }
+
+  /*.router-person b-img-lazy {*/
+    /*cursor: pointer;*/
+    /*object-fit: cover;*/
+  /*}*/
+
+  .loginImg {
     cursor: pointer;
     margin-left: 56px;
     object-fit: cover;
