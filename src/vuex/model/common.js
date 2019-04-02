@@ -4,23 +4,31 @@ import {KEY_BACK_SENSITIVE_WORDS} from "../../utils/constant";
 
 const state = {
   sensitiveWords:[],
-  alertMsg: '退出登录',
-  showAlert: true,
+  alertMsg: '',
+  isShowAlert: false,
+  spinnerConfig:{
+    isShow:false,
+    type:'border',
+    variant:'primary',
+    isSmall:false,
+    label:'Loading'
+  },
   comments:[],
   commentType:0
 }
 
-const getters = {
-  showAlert: state => state.showAlert,
-  alertMsg: state => state.alertMsg
-}
 
 const mutations = {
-  [Types.COMMON_SHOW_ALERT](state, status) {
-    state.showAlert = status
-  },
-  [Types.COMMON_ALERT_MSG](state, msg) {
+  [Types.COMMON_SHOW_ALERT](state, msg) {
+    state.isShowAlert = true
     state.alertMsg = msg
+  },
+  [Types.COMMON_CLOSE_ALERT](state) {
+    state.isShowAlert = false
+    state.alertMsg = ''
+  },
+  [Types.COMMON_SET_SPINNER](state, spinnerConfig) {
+    state.spinnerConfig = spinnerConfig
   },
   [Types.COMMON_SET_SENSITIVE_WORDS](state, words) {
     state.sensitiveWords = words;
@@ -45,11 +53,14 @@ const mutations = {
 }
 
 const actions = {
-  showAlert({commit, status}) {
-    commit(Types.COMMON_SHOW_ALERT, status)
+  showAlert({commit, status}, msg) {
+    commit(Types.COMMON_SHOW_ALERT, msg)
   },
-  alertMsg({commit, msg}) {
-    commit(Types.COMMON_ALERT_MSG, msg)
+  closeAlert({commit}) {
+    commit(Types.COMMON_CLOSE_ALERT)
+  },
+  setSpinner({commit}, spinnerConfig) {
+    commit(Types.COMMON_SET_SPINNER, spinnerConfig)
   },
   getSensitiveWords({commit}) {
     Api.getSensitiveWords(words => {
@@ -76,7 +87,6 @@ const actions = {
 export default {
   namespaced: true,
   state,
-  getters,
   mutations,
   actions
 }

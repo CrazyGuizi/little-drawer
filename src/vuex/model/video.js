@@ -1,6 +1,7 @@
 import * as Types from "../types";
 import * as Constant from "../../utils/constant";
 import * as Api from "../../api/api";
+import {NAMESPACE_COMMON} from "../../utils/constant";
 
 
 const state = {
@@ -27,40 +28,39 @@ const mutations = {
     state.scienceVideos = indexVideos.scienceVideos
     state.otherVideos = indexVideos.otherVideos
   },
-  [Types.VIDEO_SET_VIDEOS](state, date) {
+  [Types.VIDEO_SET_VIDEOS](state, data) {
     const type = data.typeId
     switch (type) {
       case Constant.CONSTANT_VIDEO_FUNNY_VIDEOS:
-        state.funnyVideos = date.funnyVideos
+        state.funnyVideos = data.videos
         break
 
       case Constant.CONSTANT_VIDEO_GAME_VIDEOS:
-        state.gameVideos = date.gameVideos
+        state.gameVideos = data.videos
         break
 
       case Constant.CONSTANT_VIDEO_LIFE_VIDEOS:
-        state.lifeVideos = date.lifeVideos
+        state.lifeVideos = data.videos
         break
 
       case Constant.CONSTANT_VIDEO_FILM_VIDEOS:
-        state.filmVideos = date.filmVideos
+        state.filmVideos = data.videos
         break
 
       case Constant.CONSTANT_VIDEO_SCIENCE_VIDEOS:
-        state.scienceVideos = date.scienceVideos
+        state.scienceVideos = data.videos
         break
 
       case Constant.CONSTANT_VIDEO_OTHER_VIDEOS:
-        state.scienceVideos = date.scienceVideos
-        break
-
-      case Constant.CONSTANT_VIDEO_RECOMMEND_VIDEOS:
-        state.recommendVideos = date.recommendVideos
+        state.otherVideos = data.videos
         break
     }
   },
   [Types.VIDEO_SET_VIDEO](state, video) {
     state.video = video
+  },
+  [Types.VIDEO_SET_RECOMMEND_VIDEOS](state, videos) {
+    state.recommendVideos = videos
   }
 }
 
@@ -72,8 +72,18 @@ const actions = {
       errors => {
       })
   },
+  getRecommendVideos({commit}) {
+    Api.getRecommendVideos(videos => {
+        commit(Types.VIDEO_SET_RECOMMEND_VIDEOS, videos)
+      },
+      errors => {
+      })
+  },
   getVideosByType({commit}, params) {
-    Api.getVideosByType(params, data => commit(Types.VIDEO_SET_VIDEOS, data), errors => {
+    Api.getVideosByType(params, data => {
+      commit(Types.VIDEO_SET_VIDEOS, data)
+      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow:false}, {root:true})
+    }, errors => {
     })
   },
   getVideoById({commit}, params) {

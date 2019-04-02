@@ -131,6 +131,14 @@ export function getIndexVideos(onS, onF) {
   });
 }
 
+export function getRecommendVideos(onS, onF) {
+  axios.get(Constant.VIDEO_GET_RECOMMEND_VIDEOS).then(res => {
+    onS(res.videos)
+  }, err => {
+    onF(err)
+  });
+}
+
 export function getVideosByType(params, onS, onF) {
   axios.post(Constant.VIDEO_GET_VIDEOS_BY_TYPE, params).then(res => {
     onS(res)

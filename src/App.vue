@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <BaseAlert />
     <router-view/>
   </div>
 </template>
@@ -9,9 +10,11 @@
   import {DISPATCH_COMMON_GETSENSITIVEWORDS, KEY_THE_FIRST_RUN} from "@/utils/constant";
   import {NAMESPACE_USER} from "./utils/constant";
   import {USER_GET_USER_FROM_LOCAL} from "./vuex/types";
+  import BaseAlert from "./components/BaseAlert";
 
   export default {
     name: 'app',
+    components: {BaseAlert},
     mounted() {
       // 项目一跑起来就运行，并且只做一次
       // if (localStorage.getItem(KEY_THE_FIRST_RUN) == '') {

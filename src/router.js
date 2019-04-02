@@ -57,6 +57,11 @@ export default new Router({
           path: '/newsDetail',
           name: 'NewsDetail',
           component: () => import('./views/NewsDetail.vue')
+        },
+        {
+          path: '/videoDetail',
+          name: 'VideoDetail',
+          component: () => import('./views/VideoDetail.vue')
         }
       ]
     },

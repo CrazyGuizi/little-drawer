@@ -1,4 +1,4 @@
-import {KEY_NEWS_ID, KEY_LOCAL_SENSITIVE_WORDS} from "./constant";
+import {KEY_NEWS_ID, KEY_LOCAL_SENSITIVE_WORDS, KEY_VIDEO_ID} from "./constant";
 import {log} from "./log-util";
 
 // 敏感词过滤
@@ -34,3 +34,23 @@ export function isContainedSensitiveWord(content) {
 
   return false
 }
+
+/**
+ * 跳转到视频详情
+ * @param id
+ */
+export function getVideoDetail(id) {
+  if (id) {
+    let resolve = this.$router.resolve({
+      name: 'VideoDetail',
+      params: {
+        videoId: id
+      },
+    });
+
+    localStorage.setItem(KEY_VIDEO_ID, id)
+    // 在新窗口打开
+    window.open(resolve.href, '_blank')
+  }
+}
+

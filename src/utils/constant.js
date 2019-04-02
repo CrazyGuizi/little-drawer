@@ -7,6 +7,7 @@
 
 //**************************************************localStorage的key**************************************************
 export const KEY_NEWS_ID = 'KEY_NEWS_ID'
+export const KEY_VIDEO_ID = 'KEY_VIDEO_ID'
 export const KEY_USER = 'KEY_USER'
 // 本地敏感词
 // export const KEY_LOCAL_SENSITIVE_WORDS = 'KEY_LOCAL_SENSITIVE_WORDS'
@@ -34,7 +35,6 @@ export const CONSTANT_VIDEO_LIFE_VIDEOS = 2
 export const CONSTANT_VIDEO_FILM_VIDEOS = 3
 export const CONSTANT_VIDEO_SCIENCE_VIDEOS = 4
 export const CONSTANT_VIDEO_OTHER_VIDEOS = 5
-export const CONSTANT_VIDEO_RECOMMEND_VIDEOS = 6
 
 
 
@@ -43,6 +43,7 @@ export const CONSTANT_VIDEO_RECOMMEND_VIDEOS = 6
 export const NAMESPACE_USER = 'user/'
 export const NAMESPACE_COMMON = 'common/'
 export const NAMESPACE_NEWS = 'news/'
+export const NAMESPACE_VIDEO = 'video/'
 
 // common
 export const DISPATCH_COMMON_GETSENSITIVEWORDS = 'common/getSensitiveWords'
@@ -61,6 +62,8 @@ export const DISPATCH_NEWS_CHANGECOLUMN = 'news/changeColumn'
 
 // video
 export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
+export const DISPATCH_VIDEO_GETVIDEOSBYTYPE = 'video/getVideosByType'
+export const DISPATCH_VIDEO_GETRECOMMENDVIDEOS = 'video/getRecommendVideos'
 
 
 

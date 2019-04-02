@@ -47,5 +47,6 @@ export const GET_SENSITIVE_WORDS = 'getSensitiveWords'
  * @type {string}
  */
 export const VIDEO_GET_INDEX_VIDEOS = 'video/getIndexVideos'
+export const VIDEO_GET_RECOMMEND_VIDEOS = 'video/getRecommendVideos'
 export const VIDEO_GET_VIDEOS_BY_TYPE = 'video/getVideosByType'
 export const VIDEO_GET_VIDEO_BY_ID = 'video/getVideoById'
