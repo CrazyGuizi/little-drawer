@@ -16,7 +16,7 @@
         <span class="date">{{date}}</span>
         <p class="content">{{content}}
           <span class="more-reply" v-show="replys != null && replys.length > 0" @click="seeComments">{{isShowMore ? '收起回复' : '查看回复'}}({{replys.length}})</span>
-          <span class="report" @click="$emit('report',id)">举报</span>
+          <span class="report" @click="report(id)">举报</span>
           <span class="reply" @click="isReply = !isReply">{{isReply ? '取消': '回复'}}</span>
         </p>
       </b-col>
@@ -42,6 +42,8 @@
 
   import SimpleEditor from "./SimpleEditor";
   import {CONSTANT_NEWS, CONSTANT_VIDEO, DISPATCH_COMMON_SENDREPLY, KEY_NEWS_REPLY, KEY_USER} from "../utils/constant";
+  import {isContainedSensitiveWord, showAlert} from "../utils/func";
+  import {mapState} from "vuex";
 
   export default {
     name: "BaseComment",
@@ -104,12 +106,23 @@
         this.isShowMore = !this.isShowMore
       },
       commit(content) {
+        const user = this.$store.state.user.user
+        if (user.id == 0) {
+          showAlert(this, '请先登录')
+          return
+        }
+
+        if (isContainedSensitiveWord(content)) {
+          showAlert(this, '内容含有敏感内容，请修改后再发布')
+          return
+        }
+
         const params = {
           commentId: this.commentId,
           content: content,
           replyId:this.id,
           toUserId:this.user.id,
-          fromUerId:JSON.parse(localStorage.getItem(KEY_USER)).id
+          fromUerId:user.id
         }
 
         // 这一条是回复回复的回复
@@ -123,19 +136,23 @@
         // 暂时没解决向祖宗发送事件的问题，所以用本地缓存
         // localStorage.setItem(KEY_NEWS_REPLY, JSON.stringify(params))
         // this.$emit('commit')
-        const commentType = this.$store.state.common.commentType;
-        switch (commentType) {
-          case CONSTANT_NEWS:
-            this.sendNewsReply(params)
-            break
-        }
+        // const commentType = this.$store.state.common.commentType;
+        // switch (commentType) {
+        //   case CONSTANT_NEWS:
+        //     this.sendReply(params)
+        //     break
+        // }
+        this.$store.dispatch(DISPATCH_COMMON_SENDREPLY, params)
         this.$refs.refSimpleEditor.content = ''
         if (!this.isShowMore) {
           this.isShowMore = !this.isShowMore
         }
       },
-      sendNewsReply: function(params) {
+      sendReply: function(params) {
         this.$store.dispatch(DISPATCH_COMMON_SENDREPLY, params)
+      },
+      report() {
+        alert(id)
       }
     }
   }

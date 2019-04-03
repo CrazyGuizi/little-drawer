@@ -10,19 +10,19 @@
       <router-link to="/novel">小说</router-link>
 
       <!--<b-nav-form id="search">-->
-        <!--<b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>-->
-        <!--<b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
+      <!--<b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>-->
+      <!--<b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
       <!--</b-nav-form>-->
 
       <b-img-lazy v-if="iconUrl == defaultIcon" class="loginImg" :src="iconUrl"
                   v-b-modal.loginRegister v-bind="loginProps" rounded="circle" alt="登录/注册"/>
 
       <b-img v-else class="loginImg" :src="iconUrl"
-                  @click="toPerson" v-bind="loginProps" rounded="circle" alt="个人中心"/>
+             @click="toPerson" v-bind="loginProps" rounded="circle" alt="个人中心"/>
 
       <!--<router-link v-else to="/person" class="router-person">-->
-        <!--<b-img-lazy  :src="iconUrl"-->
-                     <!--v-bind="loginProps" rounded="circle" alt="个人中心"/>-->
+      <!--<b-img-lazy  :src="iconUrl"-->
+      <!--v-bind="loginProps" rounded="circle" alt="个人中心"/>-->
       <!--</router-link>-->
 
       <!-- The modal -->
@@ -115,9 +115,9 @@
     data() {
       return {
         loginProps: {
-          width: 32, height: 32,class: 'm1'
+          width: 32, height: 32, class: 'm1'
         },
-        defaultIcon:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
+        defaultIcon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
         modalData: {
           headerBgVariant: 'dark',
           headerTextVariant: 'light',
@@ -164,7 +164,9 @@
       }
     },
     computed: {
-      ...mapState('user',{iconUrl: 'iconUrl'}),
+      ...mapState('user', {
+        iconUrl: state => state.user.iconUrl
+      }),
       title() {
         return this.account.isLogin ? '登录' : '注册'
       },
@@ -215,7 +217,7 @@
 
           Api.login(params, data => {
             // 存储
-            this.$store.commit(NAMESPACE_USER+ Types.USER_SET_USER, data)
+            this.$store.commit(NAMESPACE_USER + Types.USER_SET_USER, data)
             vm.account.loginMsg = data
             log('登录成功')
             vm.account.loginStatus = true
@@ -251,12 +253,12 @@
           }
 
           const params = {
-            nickNme:this.account.nickName,
-            username:this.account.regUsername,
-            password:this.account.regPassword,
+            nickNme: this.account.nickName,
+            username: this.account.regUsername,
+            password: this.account.regPassword,
           }
           Api.register(params, user => {
-            this.$store.commit(NAMESPACE_USER+ Types.USER_SET_USER, user)
+            this.$store.commit(NAMESPACE_USER + Types.USER_SET_USER, user)
 
             log('注册成功')
             this.$refs.loginModalRef.hide()
@@ -325,8 +327,8 @@
   }
 
   /*.router-person b-img-lazy {*/
-    /*cursor: pointer;*/
-    /*object-fit: cover;*/
+  /*cursor: pointer;*/
+  /*object-fit: cover;*/
   /*}*/
 
   .loginImg {

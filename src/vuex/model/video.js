@@ -14,6 +14,7 @@ const state = {
   filmVideos: [],
   scienceVideos: [],
   otherVideos: [],
+  relatedVideos:[],
   video:{},
 }
 
@@ -84,6 +85,7 @@ const actions = {
       commit(Types.VIDEO_SET_VIDEOS, data)
       commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow:false}, {root:true})
     }, errors => {
+      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow:false}, {root:true})
     })
   },
   getVideoById({commit}, params) {

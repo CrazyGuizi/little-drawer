@@ -28,7 +28,7 @@
   import {mapState} from 'vuex'
   import {KEY_USER} from "@/utils/constant";
   export default {
-    name: "NewsCommentEditor",
+    name: "CommentEditor",
     data() {
       return {
         mainProps: { blank: true, width: 45, height: 45, class: 'm1' },
@@ -37,7 +37,7 @@
     },
     computed:{
       ...mapState('user',{
-        iconUrl: state => state.iconUrl
+        iconUrl: state => state.user.iconUrl
       }),
       isCommentNull() {
         const c = this.content

@@ -17,6 +17,9 @@ export const COMMON_SEND_COMMENTS = 'common/sendComment'
 export const COMMON_SEND_REPLY = 'common/sendReply'
 // 举报
 export const COMMON_REPORT = 'common/report'
+// 点赞
+export const COMMON_GET_LIKE_STATUS = 'common/getLikeStatus'
+export const COMMON_SET_LIKE_STATUS = 'common/setLikeStatus'
 
 
 /**

@@ -50,6 +50,10 @@ export const DISPATCH_COMMON_GETSENSITIVEWORDS = 'common/getSensitiveWords'
 export const DISPATCH_COMMON_GETCOMMENTS = 'common/getComments'
 export const DISPATCH_COMMON_SENDCOMMENT = 'common/sendComment'
 export const DISPATCH_COMMON_SENDREPLY = 'common/sendReply'
+export const DISPATCH_COMMON_GETLIKESTATUS = 'common/getLikeStatus'
+export const DISPATCH_COMMON_SETLIKESTATUS = 'common/setLikeStatus'
+export const DISPATCH_COMMON_SHOWALERT = 'common/showAlert'
+export const DISPATCH_COMMON_CLOSEALERT = 'common/closeAlert'
 
 // user
 
@@ -64,6 +68,7 @@ export const DISPATCH_NEWS_CHANGECOLUMN = 'news/changeColumn'
 export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
 export const DISPATCH_VIDEO_GETVIDEOSBYTYPE = 'video/getVideosByType'
 export const DISPATCH_VIDEO_GETRECOMMENDVIDEOS = 'video/getRecommendVideos'
+export const DISPATCH_VIDEO_GETVIDEOBYID = 'video/getVideoById'
 
 
 

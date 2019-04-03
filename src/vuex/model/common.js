@@ -3,18 +3,23 @@ import * as Api from '../.././api/api'
 import {KEY_BACK_SENSITIVE_WORDS} from "../../utils/constant";
 
 const state = {
-  sensitiveWords:[],
+  sensitiveWords: [],
   alertMsg: '',
   isShowAlert: false,
-  spinnerConfig:{
-    isShow:false,
-    type:'border',
-    variant:'primary',
-    isSmall:false,
-    label:'Loading'
+  spinnerConfig: {
+    isShow: false,
+    type: 'border',
+    variant: 'primary',
+    isSmall: false,
+    label: 'Loading'
   },
-  comments:[],
-  commentType:0
+  like: {
+    id: 0,
+    status: 0,
+    date: '2019-4-3 09:19:38'
+  },
+  comments: [],
+  commentType: 0
 }
 
 
@@ -49,6 +54,9 @@ const mutations = {
       }
     }
   },
+  [Types.COMMON_SET_LIKE_STATUS](state, like) {
+    state.like = like
+  }
 
 }
 
@@ -65,22 +73,44 @@ const actions = {
   getSensitiveWords({commit}) {
     Api.getSensitiveWords(words => {
       const w = []
-      words.forEach( e => w.push(e.word))
+      words.forEach(e => w.push(e.word))
       commit(Types.COMMON_SET_SENSITIVE_WORDS, w)
     }, errors => {
     })
   },
   getComments({commit}, params) {
     Api.getComments(params, data => commit(Types.COMMON_SET_COMMENTS, data),
-      errors => {})
+      errors => {
+      })
   },
   sendComment({commit}, params) {
     Api.sendComment(params, comment => commit(Types.COMMON_ADD_COMMENT, comment),
-      errors => {})
+      errors => {
+      })
   },
   sendReply({commit}, params) {
     Api.sendReply(params, data => commit(Types.COMMON_ADD_REPLY, data),
-      errors => {})
+      errors => {
+      })
+  },
+  getLikeStatus({commit}, params) {
+    Api.getLikeStatus(params, like => {
+      commit(Types.COMMON_SET_LIKE_STATUS, like)
+    }, errors => {
+      commit(Types.COMMON_SET_LIKE_STATUS, {
+        id: 0,
+        status: 0,
+        date: '2019-4-3 09:19:38'
+      })
+    })
+  },
+  setLikeStatus({commit}, params) {
+    Api.setLikeStatus(params, like => commit(Types.COMMON_SET_LIKE_STATUS, like),
+      errors => commit(Types.COMMON_SET_LIKE_STATUS, {
+        id: 0,
+        status: 0,
+        date: '2019-4-3 09:19:38'
+      }))
   }
 }
 

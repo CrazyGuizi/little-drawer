@@ -1,8 +1,13 @@
-import {KEY_NEWS_ID, KEY_LOCAL_SENSITIVE_WORDS, KEY_VIDEO_ID} from "./constant";
+import {KEY_NEWS_ID, KEY_LOCAL_SENSITIVE_WORDS, KEY_VIDEO_ID, DISPATCH_COMMON_SHOWALERT} from "./constant";
 import {log} from "./log-util";
 
 // 敏感词过滤
 import FastScanner from 'fastscan'
+
+export function showAlert(context, msg) {
+  context.$store.dispatch(DISPATCH_COMMON_SHOWALERT, msg)
+
+}
 
 export function getNewsDetail(id) {
   if (id) {

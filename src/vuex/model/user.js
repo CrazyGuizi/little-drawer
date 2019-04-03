@@ -3,12 +3,14 @@ import * as Types from '../types'
 import {KEY_USER} from "../../utils/constant";
 
 const state = {
-  id:0,
-  nickName: '',
-  username: '',
-  password: '',
-  iconUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
-  token: ''
+  user:{
+    id:0,
+    nickName: '',
+    username: '',
+    password: '',
+    iconUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBp9Eucf5jhyiT37463w8DTw3IYyqxKcWJZLXYcbBdMVd6kYaA',
+    token: ''
+  }
 }
 
 const actions = {
@@ -30,36 +32,26 @@ const actions = {
 
 const mutations = {
   [Types.USER_SET_USER](state, user) {
-    state.id = user.id
-    state.nickName = user.nickName
-    state.username = user.username
-    state.password = user.password
-    state.iconUrl = user.iconUrl
-    state.token = "online"
+    state.user = user
     localStorage.setItem(KEY_USER, JSON.stringify(user))
   },
   [Types.USER_CLEAR](state) {
-    state.id = 0
-    state.nickName = ''
-    state.username = ''
-    state.password = ''
-    state.iconUrl = '',
-    state.token = ''
+    state.user.id = 0
+    state.user.nickName = ''
+    state.user.username = ''
+    state.user.password = ''
+    state.user.iconUrl = ''
+    state.user.token = ''
     localStorage.removeItem(KEY_USER)
   },
   [Types.USER_GET_USER_FROM_LOCAL](state) {
     const s = localStorage.getItem(KEY_USER);
-    if (s == '' && state.username == '') {
+    if (s == '' && state.user.username == '') {
       return
     }
 
     const  user = JSON.parse(s)
-    state.id = user.id
-    state.nickName = user.nickName
-    state.username = user.username
-    state.password = user.password
-    state.iconUrl = user.iconUrl
-    state.token = "online"
+    state.user = user
   }
 }
 

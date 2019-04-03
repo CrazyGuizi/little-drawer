@@ -1,9 +1,9 @@
 <template>
-  <b-modal v-model="isShowAlert" centered hide-footer hide-header-close title="提示">
+  <b-modal :visible="isShowAlert" centered hide-footer hide-header-close title="提示">
     <div class="d-block">
       <h5>{{msg}}</h5>
     </div>
-    <b-button class="mt-3" variant="outline-info" block @click="close">确定</b-button>
+    <b-button class="mt-4" variant="outline-info" block @click="close">确定</b-button>
   </b-modal>
 </template>
 
@@ -14,8 +14,8 @@
     name: "BaseAlert",
     computed: {
       ...mapState('common', {
-        isShowAlert: state => state.isShowAlert,
-        msg: state => state.alertMsg
+        isShowAlert: 'isShowAlert',
+        msg: 'alertMsg'
       })
   },
     methods:{

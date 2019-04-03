@@ -11,9 +11,9 @@
             <NewsCommentEditor ref="refNewsCommentEditor" @commit="sendComment"/>
           </b-row>
           <hr>
-          <NewsComment class="mt-4 mb-4" v-show="comments != null && comments.length > 0"
+          <NewsComment class="mt-4 mb-4"
                        v-for="(comment, index) in comments" :key="index"
-                       v-bind="comment" @commit="sendReply" @report="report"/>
+                       v-bind="comment"/>
         </b-col>
 
         <b-col class="col-md-4">
@@ -40,9 +40,9 @@
   import * as Api from '../api/api'
   import NewsRecommendItem from "@/components/NewsRecommendItem";
   import NewsArticle from "../components/NewsArticle";
-  import NewsCommentEditor from "../components/NewsCommentEditor";
+  import CommentEditor from "../components/CommentEditor";
   import BaseComment from '../components/BaseComment'
-  import {isContainedSensitiveWord} from "../utils/func";
+  import {isContainedSensitiveWord, showAlert} from "../utils/func";
   import {KEY_NEWS_ID,DISPATCH_COMMON_GETSENSITIVEWORDS} from "@/utils/constant";
   import {
     CONSTANT_NEWS,
@@ -55,7 +55,7 @@
   import {USER_SET_USER} from "../vuex/types";
   export default {
     name: "NewsDetail",
-    components: {NewsCommentEditor, NewsArticle, NewsRecommendItem, 'NewsComment':BaseComment},
+    components: {'NewsCommentEditor':CommentEditor, NewsArticle, NewsRecommendItem, 'NewsComment':BaseComment},
     data() {
       return {
         news: {},
@@ -65,11 +65,11 @@
     computed:{
       ...mapState('common',{
         comments:'comments'
-      })
+      }),
+      ...mapState('user',['user'])
     },
     mounted() {
       // 路由跳转打开新窗口的时候参数没有接收到，暂时不知道为什么
-      this.$store.commit(NAMESPACE_USER + USER_SET_USER, JSON.parse(localStorage.getItem(KEY_USER)))
       const newsId = localStorage.getItem(KEY_NEWS_ID)
       const vm = this
       const params = {newsId: newsId}
@@ -77,7 +77,7 @@
       Api.getNewsById(params, news => {
         vm.news = news;
         // 获取新闻后获取评论
-        this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTS, {topicType:0, topicId:newsId})
+        this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTS, {topicType:CONSTANT_NEWS, topicId:newsId})
 
         // 获取推荐的相关联新闻
         const p = {column: news.column, count: 3}
@@ -102,6 +102,11 @@
         })
       },
       sendComment(content) {
+        if (this.user.id == 0) {
+          showAlert(this, '请先登录')
+          return
+        }
+
         if (isContainedSensitiveWord(content)) {
           alert('评论内容含有敏感内容，请修改后再发布')
           return

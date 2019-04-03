@@ -38,8 +38,22 @@ export async function report(params, onS, onF) {
   });
 }
 
+// 点赞
+export function getLikeStatus(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_LIKE_STATUS, params).then(res => {
+    onS(res.like)
+  }, err => {
+    onF(err)
+  });
+}
 
-
+export function setLikeStatus(params, onS, onF) {
+  axios.post(Constant.COMMON_SET_LIKE_STATUS, params).then(res => {
+    onS(res.like)
+  }, err => {
+    onF(err)
+  });
+}
 
 
 // ****************************************************用户*****************************************************
