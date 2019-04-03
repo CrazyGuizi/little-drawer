@@ -7,7 +7,7 @@
       <router-link to="/news">新闻</router-link>
       <router-link to="/video">视频</router-link>
       <router-link to="/picture">趣图</router-link>
-      <router-link to="/novel">小说</router-link>
+      <!--<router-link to="/novel">小说</router-link>-->
 
       <!--<b-nav-form id="search">-->
       <!--<b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>-->

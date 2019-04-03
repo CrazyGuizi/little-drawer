@@ -55,6 +55,22 @@ export function setLikeStatus(params, onS, onF) {
   });
 }
 
+export function getCollections(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_COLLECTIONS, params).then(res => {
+    onS(res.collections)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function addCollection(params, onS, onF) {
+  axios.post(Constant.COMMON_ADD_COLLECTION, params).then(res => {
+    onS(res.collection)
+  }, err => {
+    onF(err)
+  });
+}
+
 
 // ****************************************************用户*****************************************************
 export function login(params, onSuccess, onFail) {
@@ -169,3 +185,13 @@ export function getVideosById(params, onS, onF) {
   });
 }
 
+
+//****************************************************图片*****************************************************
+
+export function getPictures(params, onS, onF) {
+  axios.post(Constant.PICTURE_GET_FUNNY_PICTURES, params).then(res => {
+    onS(res.pictures)
+  }, err => {
+    onF(err)
+  });
+}

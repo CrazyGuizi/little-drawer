@@ -18,6 +18,7 @@ const state = {
     status: 0,
     date: '2019-4-3 09:19:38'
   },
+  collections:[],
   comments: [],
   commentType: 0
 }
@@ -56,6 +57,12 @@ const mutations = {
   },
   [Types.COMMON_SET_LIKE_STATUS](state, like) {
     state.like = like
+  },
+  [Types.COMMON_GET_COLLECTIONS](state, collections) {
+    state.collections = collections
+  },
+  [Types.COMMON_ADD_COLLECTION](state, collection) {
+    state.collections.push(collection)
   }
 
 }
@@ -111,6 +118,12 @@ const actions = {
         status: 0,
         date: '2019-4-3 09:19:38'
       }))
+  },
+  getCollections({commit}, params) {
+    Api.getCollections(params, c => commit(Types.COMMON_GET_COLLECTIONS, c), e => {})
+  },
+  addCollection({commit}, params) {
+    Api.addCollection(params, c => commit(Types.COMMON_ADD_COLLECTION, c), e =>{})
   }
 }
 

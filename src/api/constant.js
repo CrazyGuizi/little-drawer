@@ -20,6 +20,8 @@ export const COMMON_REPORT = 'common/report'
 // 点赞
 export const COMMON_GET_LIKE_STATUS = 'common/getLikeStatus'
 export const COMMON_SET_LIKE_STATUS = 'common/setLikeStatus'
+export const COMMON_GET_COLLECTIONS = 'common/getCollections'
+export const COMMON_ADD_COLLECTION = 'common/addCollection'
 
 
 /**
@@ -53,3 +55,9 @@ export const VIDEO_GET_INDEX_VIDEOS = 'video/getIndexVideos'
 export const VIDEO_GET_RECOMMEND_VIDEOS = 'video/getRecommendVideos'
 export const VIDEO_GET_VIDEOS_BY_TYPE = 'video/getVideosByType'
 export const VIDEO_GET_VIDEO_BY_ID = 'video/getVideoById'
+
+/**
+ * 图片
+ * @type {string}
+ */
+export const PICTURE_GET_FUNNY_PICTURES = 'picture/getFunnyPictures'

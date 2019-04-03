@@ -54,6 +54,7 @@ export const DISPATCH_COMMON_GETLIKESTATUS = 'common/getLikeStatus'
 export const DISPATCH_COMMON_SETLIKESTATUS = 'common/setLikeStatus'
 export const DISPATCH_COMMON_SHOWALERT = 'common/showAlert'
 export const DISPATCH_COMMON_CLOSEALERT = 'common/closeAlert'
+export const DISPATCH_COMMON_ADDCOLLECTION = 'common/addCollection'
 
 // user
 
@@ -69,6 +70,10 @@ export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
 export const DISPATCH_VIDEO_GETVIDEOSBYTYPE = 'video/getVideosByType'
 export const DISPATCH_VIDEO_GETRECOMMENDVIDEOS = 'video/getRecommendVideos'
 export const DISPATCH_VIDEO_GETVIDEOBYID = 'video/getVideoById'
+
+
+// picture
+export const DISPATCH_PICTURE_GETPICTURES = 'picture/getPictures'
 
 
 
