@@ -20,7 +20,7 @@ const state = {
   },
   collections:[],
   comments: [],
-  commentType: 0
+  commentType: 0,
 }
 
 
@@ -63,6 +63,14 @@ const mutations = {
   },
   [Types.COMMON_ADD_COLLECTION](state, collection) {
     state.collections.push(collection)
+  },
+  [Types.COMMON_DELETE_COMMENT](state, comment) {
+    for (let i = 0; i < state.comments.length; i++) {
+      if (state.comments[i].id == comment.id && state.comments[i].type == comment.type) {
+        state.comments.splice(i,1)
+        break
+      }
+    }
   }
 
 }
@@ -85,8 +93,8 @@ const actions = {
     }, errors => {
     })
   },
-  getComments({commit}, params) {
-    Api.getComments(params, data => commit(Types.COMMON_SET_COMMENTS, data),
+  getCommentsByType({commit}, params) {
+    Api.getCommentsByType(params, data => commit(Types.COMMON_SET_COMMENTS, data),
       errors => {
       })
   },
@@ -124,6 +132,16 @@ const actions = {
   },
   addCollection({commit}, params) {
     Api.addCollection(params, c => commit(Types.COMMON_ADD_COLLECTION, c), e =>{})
+  },
+  getCommentsByUserId({commit}, params) {
+    Api.getCommentsByUserId(params, data => commit(Types.COMMON_SET_COMMENTS, data),
+        e => {})
+  },
+  deleteComment({commit}, params) {
+    Api.deleteComment(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {})
+  },
+  deleteReply({commit}, params) {
+    Api.deleteReply(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {})
   }
 }
 

@@ -14,11 +14,11 @@
 </template>
 
 <script>
-  import PictureItem from "../components/PictureItem";
-  import {DISPATCH_PICTURE_GETPICTURES, NAMESPACE_COMMON} from "../utils/constant";
+  import PictureItem from "../../components/PictureItem";
+  import {DISPATCH_PICTURE_GETPICTURES, NAMESPACE_COMMON} from "../../utils/constant";
   import {mapState} from "vuex";
-  import {COMMON_SET_SPINNER} from "../vuex/types";
-  import BaseSpinner from "../components/BaseSpinner";
+  import {COMMON_SET_SPINNER} from "../../vuex/types";
+  import BaseSpinner from "../../components/BaseSpinner";
 
   export default {
     name: "Picture",

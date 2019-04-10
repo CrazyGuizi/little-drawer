@@ -3,11 +3,12 @@ import * as Types from '../types'
 import {getNewsList} from "../.././api/api";
 
 const state = {
-  newsNavs:[],
-  navName:'',
-  navIcon:'',
+  newsNavs: [],
+  navName: '',
+  navIcon: '',
 
-  newsList:[],
+  newsList: [],
+  myNews: [],
   // 页面展示的新闻
   // newsShowList:[],
 
@@ -18,7 +19,7 @@ const state = {
   newsPicUrls: [],
   newsContent: '',
   newsAuthor: '',
-  newsStyle:0
+  newsStyle: 0
 
 }
 
@@ -43,6 +44,18 @@ const mutations = {
   },
   [Types.NEWS_CLEAR_NEWS_LIST](state) {
     state.newsList = []
+  },
+  [Types.NEWS_SET_MY_NEWS](state, news) {
+    state.myNews = news
+  },
+  [Types.NEWS_DELETE_NEWS](state, newsId) {
+    const newsList = state.myNews;
+    for (let i = 0; i < state.myNews.length; i++) {
+      if (state.myNews[i].id == newsId) {
+        state.myNews.splice(i,1)
+        break
+      }
+    }
   }
 }
 
@@ -56,7 +69,7 @@ const actions = {
   },
   getNewsList({commit, state}, params) {
     if (params == undefined || params == null) {
-      params = {column:'推荐', page:1}
+      params = {column: '推荐', page: 1}
     }
     Api.getNewsList(params, res => {
       commit(Types.NEWS_SET_NEWS_LIST, res)
@@ -64,7 +77,7 @@ const actions = {
       commit(Types.NEWS_SET_NEWS_LIST, [])
     })
   },
-  changeColumn({dispatch,commit, state}, params) {
+  changeColumn({dispatch, commit, state}, params) {
     state.newsList = []
     console.log('清空列表')
     return dispatch('getNewsList', params)
@@ -73,14 +86,26 @@ const actions = {
     state.newsList = []
     Api.searchNews(params, res => {
       commit(Types.NEWS_SET_NEWS_LIST, res)
-    },errors => {
+    }, errors => {
       commit(Types.NEWS_SET_NEWS_LIST, [])
     })
+  },
+  getMyNews({commit, rootState}) {
+    const userId = rootState.user.user.id
+    if (userId) {
+      Api.getNewsByUserId({userId: userId}, news => commit(Types.NEWS_SET_MY_NEWS, news),
+        e => {
+        })
+    }
+  },
+  deleteNewsById({commit}, params) {
+    Api.deleteNewsById(params, res => commit(Types.NEWS_DELETE_NEWS, params.newsId),
+      e => {})
   }
 }
 
 export default {
-  namespaced:true,
+  namespaced: true,
   state,
   getters,
   mutations,

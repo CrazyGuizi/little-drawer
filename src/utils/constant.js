@@ -44,10 +44,11 @@ export const NAMESPACE_USER = 'user/'
 export const NAMESPACE_COMMON = 'common/'
 export const NAMESPACE_NEWS = 'news/'
 export const NAMESPACE_VIDEO = 'video/'
+export const NAMESPACE_PERSON = 'person/'
 
 // common
 export const DISPATCH_COMMON_GETSENSITIVEWORDS = 'common/getSensitiveWords'
-export const DISPATCH_COMMON_GETCOMMENTS = 'common/getComments'
+export const DISPATCH_COMMON_GETCOMMENTSBYTYPE = 'common/getCommentsByType'
 export const DISPATCH_COMMON_SENDCOMMENT = 'common/sendComment'
 export const DISPATCH_COMMON_SENDREPLY = 'common/sendReply'
 export const DISPATCH_COMMON_GETLIKESTATUS = 'common/getLikeStatus'
@@ -55,14 +56,19 @@ export const DISPATCH_COMMON_SETLIKESTATUS = 'common/setLikeStatus'
 export const DISPATCH_COMMON_SHOWALERT = 'common/showAlert'
 export const DISPATCH_COMMON_CLOSEALERT = 'common/closeAlert'
 export const DISPATCH_COMMON_ADDCOLLECTION = 'common/addCollection'
+export const DISPATCH_COMMON_DELETECOMMENT = 'common/deleteComment'
+export const DISPATCH_COMMON_DELETEREPLY = 'common/deleteReply'
 
 // user
+export const DISPATCH_USER_LOGOUT = 'user/logout'
 
 // news
 export const DISPATCH_NEWS_GETNEWSNAVS = 'news/getNewsNavs'
 export const DISPATCH_NEWS_GETNEWSLIST = 'news/getNewsList'
 export const DISPATCH_NEWS_SEARCHNEWS = 'news/searchNews'
 export const DISPATCH_NEWS_CHANGECOLUMN = 'news/changeColumn'
+export const DISPATCH_NEWS_GETMYNEWS = 'news/getMyNews'
+export const DISPATCH_NEWS_DELETENEWSBYID = 'news/deleteNewsById'
 
 
 // video
@@ -70,10 +76,18 @@ export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
 export const DISPATCH_VIDEO_GETVIDEOSBYTYPE = 'video/getVideosByType'
 export const DISPATCH_VIDEO_GETRECOMMENDVIDEOS = 'video/getRecommendVideos'
 export const DISPATCH_VIDEO_GETVIDEOBYID = 'video/getVideoById'
+export const DISPATCH_VIDEO_GETVIDEOSBYUSERID = 'video/getVideosByUserId'
+export const DISPATCH_VIDEO_DELETEVIDEOBYID = 'video/deleteVideoById'
 
 
 // picture
 export const DISPATCH_PICTURE_GETPICTURES = 'picture/getPictures'
+export const DISPATCH_PICTURE_GETPICTURESBYUSERID = 'picture/getPicturesByUserId'
+export const DISPATCH_PICTURE_DELETEPICTUREBYID = 'picture/deletePictureById'
+
+// 我的
+export const DISPATCH_PERSON_TOGGLESIDEBAR = 'person/toggleSideBar'
+export const DISPATCH_PERSON_CLOSESIDEBAR = 'person/closeSideBar'
 
 
 

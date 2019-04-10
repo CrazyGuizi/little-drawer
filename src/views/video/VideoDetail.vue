@@ -71,18 +71,18 @@
 <script>
   import {
     CONSTANT_VIDEO,
-    DISPATCH_COMMON_GETCOMMENTS,
+    DISPATCH_COMMON_GETCOMMENTSBYTYPE,
     DISPATCH_COMMON_GETLIKESTATUS,
     DISPATCH_COMMON_SENDCOMMENT,
     DISPATCH_COMMON_SETLIKESTATUS, DISPATCH_COMMON_SHOWALERT,
     DISPATCH_VIDEO_GETVIDEOBYID,
     KEY_USER,
     KEY_VIDEO_ID
-  } from "../utils/constant";
+  } from "../../utils/constant";
   import {mapState} from 'vuex'
-  import CommentEditor from "../components/CommentEditor";
-  import BaseComment from '../components/BaseComment'
-  import {isContainedSensitiveWord, showAlert} from "../utils/func";
+  import CommentEditor from "../../components/CommentEditor";
+  import BaseComment from '../../components/BaseComment'
+  import {isContainedSensitiveWord, showAlert} from "../../utils/func";
 
 
   export default {
@@ -107,7 +107,7 @@
 
       // 获取视频评论
       const commentParams = {topicType: CONSTANT_VIDEO, topicId: id}
-      this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTS, commentParams)
+      this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTSBYTYPE, commentParams)
 
       // 获取该用户对视频的点赞状态
       if (this.user.id != 0) {
@@ -117,6 +117,10 @@
           userId: this.user.id}
         this.$store.dispatch(DISPATCH_COMMON_GETLIKESTATUS, likeParams)
       }
+    },
+    watch:{
+      // 路由变化会再次执行该方法
+      // '$route': 'fetchData'
     },
     computed: {
       ...mapState('video', ['video']),

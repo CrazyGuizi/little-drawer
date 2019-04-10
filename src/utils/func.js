@@ -1,5 +1,23 @@
 import {KEY_NEWS_ID, KEY_LOCAL_SENSITIVE_WORDS, KEY_VIDEO_ID, DISPATCH_COMMON_SHOWALERT} from "./constant";
 import {log} from "./log-util";
+import Cookies from 'js-cookie'
+
+const TokenKey = 'little-drawer'
+
+export function getToken() {
+  let token = Cookies.get(TokenKey);
+  console.log('获取token：' + token)
+  return token
+}
+
+export function setToken(token) {
+  console.log('设置token：' + token)
+  return Cookies.set(TokenKey, token)
+}
+
+export function removeToken() {
+  return Cookies.remove(TokenKey)
+}
 
 // 敏感词过滤
 import FastScanner from 'fastscan'
@@ -57,5 +75,14 @@ export function getVideoDetail(id) {
     // 在新窗口打开
     window.open(resolve.href, '_blank')
   }
+}
+
+/**
+ * 是否是有效链接
+ * @param path
+ * @returns {boolean}
+ */
+export function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path)
 }
 

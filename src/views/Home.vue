@@ -14,7 +14,7 @@
       <!--<b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
       <!--</b-nav-form>-->
 
-      <b-img-lazy v-if="iconUrl == defaultIcon" class="loginImg" :src="iconUrl"
+      <b-img-lazy v-if="iconUrl != null && iconUrl == defaultIcon" class="loginImg" :src="iconUrl"
                   v-b-modal.loginRegister v-bind="loginProps" rounded="circle" alt="登录/注册"/>
 
       <b-img v-else class="loginImg" :src="iconUrl"

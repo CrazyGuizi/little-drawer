@@ -8,6 +8,7 @@ import user from  './model/user'
 import news from  './model/news'
 import video from  './model/video'
 import picture from "./model/picture";
+import person from "./model/person";
 
 export default new Vuex.Store({
   modules: {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     user,
     news,
     video,
-    picture
+    picture,
+    person
   }
 })

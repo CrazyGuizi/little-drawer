@@ -2,7 +2,15 @@ import * as axios from './http.js'
 import * as Constant from "./constant";
 
 //****************************************************公共*****************************************************
-export async function getComments(params, onS, onF) {
+export async function getCommentsByType(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_COMMENTS, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getCommentsByUserId(params, onS, onF) {
   axios.post(Constant.COMMON_GET_COMMENTS, params).then(res => {
     onS(res)
   }, err => {
@@ -14,6 +22,22 @@ export async function getComments(params, onS, onF) {
 export async function sendComment(params, onS, onF) {
   axios.post(Constant.COMMON_SEND_COMMENTS, params).then(res => {
     onS(res.comment)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deleteComment(params, onS, onF) {
+  axios.post(Constant.COMMON_DELETE_COMMENT, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deleteReply(params, onS, onF) {
+  axios.post(Constant.COMMON_DELETE_REPLY, params).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -131,6 +155,38 @@ export async function getNewsById(newsId, onS, onF) {
   });
 }
 
+export function getNewsByUserId(userId, onS, onF) {
+  axios.post(Constant.NEWS_GET_NEWS_BY_USER_ID, userId).then(res => {
+    onS(res.newsList)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function addNews(params, onS, onF) {
+  axios.post(Constant.NEWS_ADD_NEWS, params).then(res => {
+    onS(res.news)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deleteNewsById(id, onS, onF) {
+  axios.post(Constant.NEWS_DELETE_NEWS_BY_ID, id).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function updateNewsById(id, onS, onF) {
+  axios.post(Constant.NEWS_UPDATE_NEWS_BY_ID, id).then(res => {
+    onS(res.news)
+  }, err => {
+    onF(err)
+  });
+}
+
 // 推荐相关联的新闻,两个参数，一个是类别，一个是请求新闻个数
 export async function getNewsByColumn(params, onS, onF) {
   axios.post(Constant.NEWS_GET__NEWS_BY_COLUMN, params).then(res => {
@@ -139,6 +195,7 @@ export async function getNewsByColumn(params, onS, onF) {
     onF(err)
   });
 }
+
 
 // 获取敏感词库
 export function getSensitiveWords(onS, onF) {
@@ -185,6 +242,22 @@ export function getVideosById(params, onS, onF) {
   });
 }
 
+export function getVideosByUserId(params, onS, onF) {
+  axios.post(Constant.VIDEO_GET_VIDEOS_BY_USER_ID, params).then(res => {
+    onS(res.videos)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deleteVideoById(params, onS, onF) {
+  axios.post(Constant.VIDEO_DELETE_VIDEO_BY_ID, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
 
 //****************************************************图片*****************************************************
 
@@ -195,3 +268,22 @@ export function getPictures(params, onS, onF) {
     onF(err)
   });
 }
+
+export function getPicturesByUserId(params, onS, onF) {
+  axios.post(Constant.PICTURE_GET_PICTURES_BY_USER_ID, params).then(res => {
+    onS(res.pictures)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deletePictureById(params, onS, onF) {
+  axios.post(Constant.PICTURE_DELETE_PICTURE_BY_ID, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+//****************************************************个人*****************************************************
+

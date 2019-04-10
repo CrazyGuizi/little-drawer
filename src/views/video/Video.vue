@@ -97,18 +97,18 @@
 
 <script>
 
-  import * as http from "../api/http";
-  import VideoItem from "../components/VideoItem";
-  import VideoWithTypeNameItem from "../components/VideoWithTypeNameItem";
+  import * as http from "../../api/http";
+  import VideoItem from "../../components/VideoItem";
+  import VideoWithTypeNameItem from "../../components/VideoWithTypeNameItem";
   import {mapState} from 'vuex'
-  import BaseSpinner from "../components/BaseSpinner";
+  import BaseSpinner from "../../components/BaseSpinner";
   import {
     DISPATCH_VIDEO_GETINDEXVIDEOS,
     DISPATCH_VIDEO_GETRECOMMENDVIDEOS,
     DISPATCH_VIDEO_GETVIDEOSBYTYPE,
     NAMESPACE_COMMON
-  } from "../utils/constant";
-  import {COMMON_SET_SPINNER} from "../vuex/types";
+  } from "../../utils/constant";
+  import {COMMON_SET_SPINNER} from "../../vuex/types";
 
   export default {
     name: "Video",

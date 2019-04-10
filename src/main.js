@@ -14,6 +14,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 
+
+// element-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/styles/index.scss'
+import '@/assets/icons'
+
+Vue.use(ElementUI)
+
 Vue.config.productionTip = false
 
 

@@ -14,8 +14,9 @@ const state = {
   filmVideos: [],
   scienceVideos: [],
   otherVideos: [],
-  relatedVideos:[],
-  video:{},
+  relatedVideos: [],
+  video: {},
+  myVideos: []
 }
 
 const mutations = {
@@ -62,7 +63,18 @@ const mutations = {
   },
   [Types.VIDEO_SET_RECOMMEND_VIDEOS](state, videos) {
     state.recommendVideos = videos
-  }
+  },
+  [Types.VIDEO_SET_MY_VIDEOS](state, videos) {
+    state.myVideos = videos
+  },
+  [Types.VIDEO_REMOVE_MY_VIDEO](state, video) {
+    for (let i = 0; i < state.myVideos.length; i++) {
+      if (state.myVideos[i].id == video.id) {
+        state.myVideos.splice(i, 1)
+        break
+      }
+    }
+  },
 }
 
 const actions = {
@@ -83,13 +95,24 @@ const actions = {
   getVideosByType({commit}, params) {
     Api.getVideosByType(params, data => {
       commit(Types.VIDEO_SET_VIDEOS, data)
-      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow:false}, {root:true})
+      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow: false}, {root: true})
     }, errors => {
-      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow:false}, {root:true})
+      commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow: false}, {root: true})
     })
   },
   getVideoById({commit}, params) {
     Api.getVideosById(params, video => commit(Types.VIDEO_SET_VIDEO, video), errors => {
+    })
+  },
+  getVideosByUserId({commit, rootState}) {
+    const userId = rootState.user.user.id
+    if (userId) {
+      Api.getVideosByUserId({userId: userId}, videos => commit(Types.VIDEO_SET_MY_VIDEOS, videos), errors => {
+      })
+    }
+  },
+  deleteVideoById({commit}, params) {
+    Api.deleteVideoById(params, r => commit(Types.VIDEO_REMOVE_MY_VIDEO, params), errors => {
     })
   }
 }

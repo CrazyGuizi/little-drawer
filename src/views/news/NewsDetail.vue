@@ -37,22 +37,22 @@
 
 <script>
   import {log} from "@/utils/log-util";
-  import * as Api from '../api/api'
+  import * as Api from '../../api/api'
   import NewsRecommendItem from "@/components/NewsRecommendItem";
-  import NewsArticle from "../components/NewsArticle";
-  import CommentEditor from "../components/CommentEditor";
-  import BaseComment from '../components/BaseComment'
-  import {isContainedSensitiveWord, showAlert} from "../utils/func";
+  import NewsArticle from "../../components/NewsArticle";
+  import CommentEditor from "../../components/CommentEditor";
+  import BaseComment from '../../components/BaseComment'
+  import {isContainedSensitiveWord, showAlert} from "../../utils/func";
   import {KEY_NEWS_ID,DISPATCH_COMMON_GETSENSITIVEWORDS} from "@/utils/constant";
   import {
     CONSTANT_NEWS,
-    DISPATCH_COMMON_GETCOMMENTS,
+    DISPATCH_COMMON_GETCOMMENTSBYTYPE,
     DISPATCH_COMMON_SENDCOMMENT, KEY_NEWS_REPLY,
     KEY_USER,
     NAMESPACE_USER
-  } from "../utils/constant";
+  } from "../../utils/constant";
   import {mapState, mapActions} from 'vuex'
-  import {USER_SET_USER} from "../vuex/types";
+  import {USER_SET_USER} from "../../vuex/types";
   export default {
     name: "NewsDetail",
     components: {'NewsCommentEditor':CommentEditor, NewsArticle, NewsRecommendItem, 'NewsComment':BaseComment},
@@ -77,7 +77,7 @@
       Api.getNewsById(params, news => {
         vm.news = news;
         // 获取新闻后获取评论
-        this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTS, {topicType:CONSTANT_NEWS, topicId:newsId})
+        this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTSBYTYPE, {topicType:CONSTANT_NEWS, topicId:newsId})
 
         // 获取推荐的相关联新闻
         const p = {column: news.column, count: 3}
