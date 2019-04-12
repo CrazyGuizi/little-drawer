@@ -196,6 +196,7 @@ export default new Router({
         {
           path: 'publishVideo',
           name: "PublishVideo",
+          component: () => import('@/views/person/video/PublishVideo.vue'),
           meta: {
             title: '上传视频'
           }

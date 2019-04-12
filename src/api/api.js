@@ -258,6 +258,16 @@ export function deleteVideoById(params, onS, onF) {
   });
 }
 
+export function addVideo(params, onS, onF) {
+  axios.post(Constant.VIDEO_ADD_VIDEO, params).then(res => {
+    onS(res.video)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+
 
 //****************************************************图片*****************************************************
 

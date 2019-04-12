@@ -64,6 +64,7 @@ export const VIDEO_GET_VIDEOS_BY_TYPE = 'video/getVideosByType'
 export const VIDEO_GET_VIDEO_BY_ID = 'video/getVideoById'
 export const VIDEO_GET_VIDEOS_BY_USER_ID = 'video/getVideosByUserId'
 export const VIDEO_DELETE_VIDEO_BY_ID = 'video/deleteVideoById'
+export const VIDEO_ADD_VIDEO = 'video/addVideo'
 
 /**
  * 图片
