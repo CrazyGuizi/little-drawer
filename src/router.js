@@ -222,6 +222,7 @@ export default new Router({
         {
           path: 'publishPicture',
           name: "PublishPicture",
+          component: () => import('@/views/person/picture/PublishPicture.vue'),
           meta: {
             title: '上传图片'
           }

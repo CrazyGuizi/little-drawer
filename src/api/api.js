@@ -295,5 +295,15 @@ export function deletePictureById(params, onS, onF) {
   });
 }
 
+export function addPicture(params, onS, onF) {
+  axios.post(Constant.PICTURE_ADD_PICTURE, params).then(res => {
+    onS(res.picture)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+
 //****************************************************个人*****************************************************
 
