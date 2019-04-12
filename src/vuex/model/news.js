@@ -11,16 +11,17 @@ const state = {
   myNews: [],
   // 页面展示的新闻
   // newsShowList:[],
-
-  newsId: 0,
-  newsTitle: '',
-  newsColumn: '',
-  newsDate: '',
-  newsPicUrls: [],
-  newsContent: '',
-  newsAuthor: '',
-  newsStyle: 0
-
+  news:
+    {
+      id: 0,
+      title: "",
+      column: "",
+      date: "",
+      picUrl: [],
+      content: "",
+      author: "",
+      style: 0
+    },
 }
 
 const getters = {
@@ -52,7 +53,7 @@ const mutations = {
     const newsList = state.myNews;
     for (let i = 0; i < state.myNews.length; i++) {
       if (state.myNews[i].id == newsId) {
-        state.myNews.splice(i,1)
+        state.myNews.splice(i, 1)
         break
       }
     }
@@ -100,8 +101,9 @@ const actions = {
   },
   deleteNewsById({commit}, params) {
     Api.deleteNewsById(params, res => commit(Types.NEWS_DELETE_NEWS, params.newsId),
-      e => {})
-  }
+      e => {
+      })
+  },
 }
 
 export default {

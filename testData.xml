@@ -5,7 +5,7 @@
     <mappings>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>/user/login</path>
             </sourceLocation>
@@ -15,7 +15,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>/user/register</path>
             </sourceLocation>
@@ -25,7 +25,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>/user/validateUsername</path>
             </sourceLocation>
@@ -35,7 +35,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>/news/getNewsList</path>
             </sourceLocation>
@@ -45,7 +45,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>news/getNewsNavs</path>
             </sourceLocation>
@@ -55,7 +55,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>news/searchNews</path>
             </sourceLocation>
@@ -65,7 +65,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>news/getNewsById</path>
             </sourceLocation>
@@ -75,17 +75,17 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
-                <path>common/getComments</path>
+                <path>common/getCommentsByType</path>
             </sourceLocation>
-            <dest>E:\毕设\api\common\getComments.json</dest>
+            <dest>E:\毕设\api\common\getCommentsByType.json</dest>
             <enabled>true</enabled>
             <caseSensitive>true</caseSensitive>
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>news/getNewsByColumn</path>
             </sourceLocation>
@@ -95,7 +95,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>getSensitiveWords</path>
             </sourceLocation>
@@ -105,7 +105,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>common/sendComment</path>
             </sourceLocation>
@@ -115,7 +115,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>common/sendReply</path>
             </sourceLocation>
@@ -125,7 +125,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>common/getLikeStatus</path>
             </sourceLocation>
@@ -135,7 +135,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>video/getIndexVideos</path>
             </sourceLocation>
@@ -145,7 +145,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>video/getVideosByType</path>
             </sourceLocation>
@@ -155,7 +155,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>video/getVideoById</path>
             </sourceLocation>
@@ -165,7 +165,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>video/getRecommendVideos</path>
             </sourceLocation>
@@ -175,7 +175,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>common/setLikeStatus</path>
             </sourceLocation>
@@ -185,7 +185,7 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>picture/getFunnyPictures</path>
             </sourceLocation>
@@ -195,11 +195,101 @@
         </mapLocalMapping>
         <mapLocalMapping>
             <sourceLocation>
-                <host>192.168.0.111</host>
+                <host>192.168.43.3</host>
                 <port>8080</port>
                 <path>common/addCollection</path>
             </sourceLocation>
             <dest>E:\毕设\api\common\addCollection.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>news/getNewsByUserId</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\news\getNewsByUserId.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>news/deleteNewsById</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\news\deleteNewsById.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>news/updateNewsById</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\news\updateNewsById.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>common/deleteComment</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\common\deleteComment.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>common/deleteReply</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\common\deleteReply.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>video/getVideosByUserId</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\video\getVideosByUserId.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>video/deleteVideoById</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\video\deleteVideoById.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>picture/getPicturesByUserId</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\picture\getPicturesByUserId.json</dest>
+            <enabled>true</enabled>
+            <caseSensitive>true</caseSensitive>
+        </mapLocalMapping>
+        <mapLocalMapping>
+            <sourceLocation>
+                <host>192.168.43.3</host>
+                <port>8080</port>
+                <path>picture/deletePictureById</path>
+            </sourceLocation>
+            <dest>E:\毕设\api\picture\deletePictureById.json</dest>
             <enabled>true</enabled>
             <caseSensitive>true</caseSensitive>
         </mapLocalMapping>

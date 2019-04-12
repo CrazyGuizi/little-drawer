@@ -4,7 +4,7 @@
  */
 
 // export const BASE_URL = 'http://192.168.43.3:8080'
-export const BASE_URL = 'http://192.168.0.111:8080'
+export const BASE_URL = 'http://192.168.43.3:8080'
 export const TIME_OUT = 10000
 export const SUCCESS = 0
 

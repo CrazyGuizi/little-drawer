@@ -162,6 +162,7 @@ export default new Router({
         {
           path: 'publishNews',
           name: "PublishNews",
+          component: () => import('@/views/person/news/PublishNews.vue'),
           meta: {
             title: '发表新闻'
           }
