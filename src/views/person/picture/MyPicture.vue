@@ -63,7 +63,7 @@
   import {
     DISPATCH_PICTURE_DELETEPICTUREBYID,
     DISPATCH_PICTURE_GETPICTURESBYUSERID,
-  } from "@/utils/constant";
+  } from "../../../utils/constant";
   import {getVideoDetail} from "@/utils/func";
 
   export default {
@@ -95,7 +95,7 @@
           type: "warning"
         }).then(() => {
           const params = {
-            id: picture.id
+            pictureId: picture.id
           }
           vm.$store.dispatch(DISPATCH_PICTURE_DELETEPICTUREBYID, params)
           this.$message({

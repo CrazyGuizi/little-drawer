@@ -41,8 +41,7 @@ const mutations = {
     localStorage.setItm(KEY_BACK_SENSITIVE_WORDS)
   },
   [Types.COMMON_SET_COMMENTS](state, data) {
-    state.comments = data.comments;
-    state.commentType = data.commentType;
+    state.comments = data
   },
   [Types.COMMON_ADD_COMMENT](state, comment) {
     state.comments.push(comment)
@@ -96,6 +95,7 @@ const actions = {
   getCommentsByType({commit}, params) {
     Api.getCommentsByType(params, data => commit(Types.COMMON_SET_COMMENTS, data),
       errors => {
+        commit(Types.COMMON_SET_COMMENTS, [])
       })
   },
   sendComment({commit}, params) {
@@ -104,7 +104,13 @@ const actions = {
       })
   },
   sendReply({commit}, params) {
-    Api.sendReply(params, data => commit(Types.COMMON_ADD_REPLY, data),
+    const data = {
+      commentId: params.commentId
+    }
+    Api.sendReply(params, reply => {
+      data.reply = reply
+        commit(Types.COMMON_ADD_REPLY, data)
+      },
       errors => {
       })
   },
@@ -135,7 +141,9 @@ const actions = {
   },
   getCommentsByUserId({commit}, params) {
     Api.getCommentsByUserId(params, data => commit(Types.COMMON_SET_COMMENTS, data),
-        e => {})
+        e => {
+          commit(Types.COMMON_SET_COMMENTS, [])
+        })
   },
   deleteComment({commit}, params) {
     Api.deleteComment(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {})

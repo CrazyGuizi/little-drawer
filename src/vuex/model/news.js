@@ -62,15 +62,48 @@ const mutations = {
 
 const actions = {
   getNewsNavs({commit}) {
-    Api.getNewsNavs(res => {
-      commit(Types.NEWS_SET_NEWS_NAVS, res)
-    }, errors => {
-      commit(Types.NEWS_SET_NEWS_NAVS, [])
-    })
+    const navs = [{
+      "name": "头条",
+      "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+    },
+      {
+        "name": "推荐",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      },
+      {
+        "name": "社会",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      },
+      {
+        "name": "科技",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }, {
+        "name": "生活",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }, {
+        "name": "娱乐",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }, {
+        "name": "农业",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }, {
+        "name": "国际",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }, {
+        "name": "体育",
+        "icon": "http://q.qlogo.cn/qqapp/208656/2B6C8829139AE9CFDC16D2866092BD8B/100"
+      }
+    ]
+    commit(Types.NEWS_SET_NEWS_NAVS, navs)
+    // Api.getNewsNavs(res => {
+    //   commit(Types.NEWS_SET_NEWS_NAVS, res)
+    // }, errors => {
+    //   commit(Types.NEWS_SET_NEWS_NAVS, [])
+    // })
   },
   getNewsList({commit, state}, params) {
     if (params == undefined || params == null) {
-      params = {column: '推荐', page: 1}
+      params = {column: '推荐', pageNum: 1, pageSize:10}
     }
     Api.getNewsList(params, res => {
       commit(Types.NEWS_SET_NEWS_LIST, res)
@@ -96,6 +129,7 @@ const actions = {
     if (userId) {
       Api.getNewsByUserId({userId: userId}, news => commit(Types.NEWS_SET_MY_NEWS, news),
         e => {
+        commit(Types.NEWS_SET_MY_NEWS, [])
         })
     }
   },

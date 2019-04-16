@@ -109,6 +109,7 @@
   import * as Types from '../vuex/types'
   import {mapState} from 'vuex'
   import {NAMESPACE_USER} from "@/utils/constant";
+  import {DISPATCH_USER_SETUSER} from "../utils/constant";
 
   export default {
     name: 'Home',
@@ -150,7 +151,10 @@
         if (new RegExp('^[a-zA-Z0-9]{5,20}$').test(newVal)) {
           log('验证用户名是否存在')
           // 数据每次触发都会去执行，后面可以优化一下
-          Api.validateUsername(this.account.regUsername, data => {
+          const param = {
+            username:this.account.regUsername
+          }
+          Api.validateUsername(param, data => {
             // 返回数据说明用户已经存在
             log('执行了false')
             vm.account.accountDontExit = false
@@ -253,13 +257,12 @@
           }
 
           const params = {
-            nickNme: this.account.nickName,
+            nickName: this.account.nickName,
             username: this.account.regUsername,
             password: this.account.regPassword,
           }
           Api.register(params, user => {
             this.$store.commit(NAMESPACE_USER + Types.USER_SET_USER, user)
-
             log('注册成功')
             this.$refs.loginModalRef.hide()
             this.$router.push('/person')

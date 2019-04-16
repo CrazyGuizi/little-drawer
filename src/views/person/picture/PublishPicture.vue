@@ -7,9 +7,11 @@
       <el-form-item label="上传图片" prop="url">
         <el-upload
           ref="uploadPicture"
-          action="http://192.168.43.3:8080/upload/picture"
+          :action="uploadPath"
+          :headers="header"
           :before-upload="beforePictureUpload"
           :on-success="handlePictureSuccess"
+          :on-error="handlePictureFail"
           :on-remove="handlePictureRemove"
           :limit="1"
           list-type="picture">
@@ -27,30 +29,42 @@
     import {mapState} from "vuex";
     import {isContainedSensitiveWord} from "../../../utils/func";
     import {addPicture} from "../../../api/api";
+    import {CONSTANT_PICTURE} from "../../../utils/constant";
 
     export default {
         name: "PublishPicture",
       data() {
           return {
             picture:{
+              id:'',
               title:'',
               url:''
             },
             rules:{
               title:[{required:true, message: '请输入图片的标题', triangle: 'blur'}],
               url:[{required:true, message: '请上传图片', triangle: 'blur'}]
-            }
+            },
+            uploadPath:'http://127.0.0.1:8080/api/resource/upload/picture'
           }
       },
       computed:{
-          ...mapState('user', ['user'])
+          ...mapState('user', ['user']),
+        header() {
+            return {
+              "X-token":this.user.token
+            }
+        }
       },
       methods: {
         handlePictureRemove(file, fileList) {
           this.picture.url = ''
         },
         handlePictureSuccess(response, file, fileList) {
-          this.picture.url = fileList[0].response.data.picture.src
+          this.picture.url = fileList[0].response.data.url
+          this.picture.id = fileList[0].response.data.id
+        },
+        handlePictureFail(err, file, fileList) {
+          this.$message.error("上传失败，络出错或登录身份已失效")
         },
         handlePictureRemove(file, fileList) {
           this.picture.source = ''
@@ -65,10 +79,14 @@
                 this.$message({type: 'warning', message: '标题含有敏感词'})
               } else {
                 const params = {
-                  picture: this.picture,
-                  userId: this.user.id
+                  id:this.picture.id,
+                  title:this.picture.title,
+                  url:this.picture.url,
+                  topicType:CONSTANT_PICTURE,
+                  author: {
+                    id:this.user.id
+                  }
                 }
-                console.log(params)
                 const vm = this
                 addPicture(params, picture => {
                     vm.$message({type: 'success', message: '发布成功'})

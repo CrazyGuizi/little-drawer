@@ -33,7 +33,7 @@
         label="内容">
       </el-table-column>
       <el-table-column
-        prop="author.nickName"
+        prop="fromUser.nickName"
         label="发布者"
         width="180">
       </el-table-column>
@@ -64,7 +64,7 @@
     DISPATCH_COMMON_DELETECOMMENT, DISPATCH_COMMON_DELETEREPLY,
     DISPATCH_COMMON_GETCOMMENTSBYTYPE,
     DISPATCH_NEWS_GETMYNEWS
-  } from "@/utils/constant";
+  } from "../../../utils/constant";
 
   export default {
     name: "Comment",
@@ -87,8 +87,7 @@
         vm.currentNewsTitle = this.myNews[0].title
         vm.$store.dispatch(DISPATCH_COMMON_GETCOMMENTSBYTYPE, {
           topicType: CONSTANT_NEWS,
-          topicId: vm.currentVideoId,
-          isAdmin:true
+          topicId: vm.currentNewsId,
         })
       },500)
 
@@ -122,17 +121,12 @@
           cancelButtonText: '取消',
           type: "warning"
         }).then(() => {
-          const params = {
-            topicType: CONSTANT_NEWS,
-            type:comment.type,
-            id: comment.id
-          }
-          if (comment.type == 0) {
+          if (comment.toUser == null || comment.toUser == undefined) {
             // 删除的是评论
-            vm.$store.dispatch(DISPATCH_COMMON_DELETECOMMENT, params)
+            vm.$store.dispatch(DISPATCH_COMMON_DELETECOMMENT, {commentId:comment.id})
           } else if (comment.type == 1) {
             // 删除的是回复
-            vm.$store.dispatch(DISPATCH_COMMON_DELETEREPLY, params)
+            vm.$store.dispatch(DISPATCH_COMMON_DELETEREPLY, {replyId:comment.id})
           }
           this.$message({
             type: 'success',

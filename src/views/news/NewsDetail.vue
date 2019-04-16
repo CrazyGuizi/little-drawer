@@ -11,7 +11,8 @@
             <NewsCommentEditor ref="refNewsCommentEditor" @commit="sendComment"/>
           </b-row>
           <hr>
-          <NewsComment class="mt-4 mb-4"
+          <h3 v-if="comments.length <= 0">暂无评论</h3>
+          <NewsComment v-else class="mt-4 mb-4"
                        v-for="(comment, index) in comments" :key="index"
                        v-bind="comment"/>
         </b-col>
@@ -80,8 +81,8 @@
         this.$store.dispatch(DISPATCH_COMMON_GETCOMMENTSBYTYPE, {topicType:CONSTANT_NEWS, topicId:newsId})
 
         // 获取推荐的相关联新闻
-        const p = {column: news.column, count: 3}
-        Api.getNewsByColumn(p, recommendNewsList => {
+        const p = {column: news.column, pageNum: 1, pageSize:5}
+        Api.getNewsRandom(p, recommendNewsList => {
           vm.recommendNewsList = recommendNewsList
         }, errors => {
           // 获取推荐新闻失败
@@ -95,7 +96,7 @@
         const vm = this
         vm.recommendNewsList = []
         const p = {column: this.news.column, count: 3}
-        Api.getNewsByColumn(p, recommendNewsList => {
+        Api.getNewsRandom(p, recommendNewsList => {
           vm.recommendNewsList = recommendNewsList
         }, errors => {
           // 获取推荐新闻失败
@@ -115,7 +116,9 @@
           const params = {
             topicType: CONSTANT_NEWS,
             topicId:this.news.id,
-            userId:user.id,
+            fromUser:{
+              id:user.id
+            },
             content:content
           }
           this.$store.dispatch(DISPATCH_COMMON_SENDCOMMENT, params)

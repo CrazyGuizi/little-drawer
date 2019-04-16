@@ -3,11 +3,11 @@
     <b-row>
       <!--头像-->
       <b-col class="col-md-1">
-        <b-img-lazy class="icon" v-bind="mainProps" :src="user.iconUrl" rounded="circle"/>
+        <b-img-lazy class="icon" v-bind="mainProps" :src="fromUser.iconUrl" rounded="circle"/>
       </b-col>
       <!--评论展示-->
       <b-col>
-        <span class="nick-name">{{user.nickName}}</span>
+        <span class="nick-name">{{fromUser.nickName}}</span>
         <span v-show="toUser != null && JSON.stringify(toUser) != '{}'">
           &nbsp;回复&nbsp;
          <span class="nick-name">
@@ -41,7 +41,14 @@
 <script>
 
   import SimpleEditor from "./SimpleEditor";
-  import {CONSTANT_NEWS, CONSTANT_VIDEO, DISPATCH_COMMON_SENDREPLY, KEY_NEWS_REPLY, KEY_USER} from "../utils/constant";
+  import {
+    CONSTANT_NEWS,
+    CONSTANT_NUM_0, CONSTANT_NUM_1,
+    CONSTANT_VIDEO,
+    DISPATCH_COMMON_SENDREPLY,
+    KEY_NEWS_REPLY,
+    KEY_USER
+  } from "../utils/constant";
   import {isContainedSensitiveWord, showAlert} from "../utils/func";
   import {mapState} from "vuex";
 
@@ -57,15 +64,10 @@
         type: Number,
         default: 0
       },
-      iconUrl: {
-        type: String,
-        default: 'http://pic.52112.com/180205/18020526/a9yPQozt0g.jpg'
-      },
-      user: {
+      fromUser: {
         type: Object,
         default: function () {
           return {
-            id: 0,
             nickName: "土小贵",
             iconUrl: "http://www.e4221.com/uploads/allimg/180606/aaa.jpg"
           }
@@ -74,12 +76,13 @@
       toUser: {
         type: Object,
         default: function () {
-          return {}
+          return {
+          }
         }
       },
       content: {
         type: String,
-        default: '大人，我觉得此事必有蹊跷。大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷大人，我觉得此事必有蹊跷'
+        default: '我觉得此事必有蹊跷'
       },
       date: {
         type: String,
@@ -118,19 +121,24 @@
         }
 
         const params = {
-          commentId: this.commentId,
           content: content,
-          replyId:this.id,
-          toUserId:this.user.id,
-          fromUerId:user.id
+          replyId: this.id,
+          fromUser:{
+            id:user.id
+          },
+          toUser:{
+            id:this.fromUser.id
+          }
         }
 
         // 这一条是回复回复的回复
         if (this.toUser != null && JSON.stringify(this.toUser) != '{}') {
-          params.replyType = CONSTANT_VIDEO
+          params.replyType = CONSTANT_NUM_1
+          params.commentId = this.commentId
         } else {
           // 这是一条回复评论的回复
-          params.replyType = CONSTANT_NEWS
+          params.replyType = CONSTANT_NUM_0
+          params.commentId = this.id
         }
 
         // 暂时没解决向祖宗发送事件的问题，所以用本地缓存

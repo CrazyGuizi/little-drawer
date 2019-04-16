@@ -87,9 +87,9 @@
             <sourceLocation>
                 <host>192.168.43.3</host>
                 <port>8080</port>
-                <path>news/getNewsByColumn</path>
+                <path>news/getNewsRandom</path>
             </sourceLocation>
-            <dest>E:\毕设\api\news\getNewsByColumn.json</dest>
+            <dest>E:\毕设\api\news\getNewsRandom.json</dest>
             <enabled>true</enabled>
             <caseSensitive>true</caseSensitive>
         </mapLocalMapping>

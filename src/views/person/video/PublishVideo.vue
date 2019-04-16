@@ -15,8 +15,10 @@
       <el-form-item label="视频封面" prop="poster">
         <el-upload
           ref="uploadPoster"
-          action="http://192.168.43.3:8080/upload/picture"
+          :action="uploadPicturePath"
+          :headers="header"
           :on-success="handlePosterSuccess"
+          :on-error="handlePosterFail"
           :on-remove="handlePosterRemove"
           :limit="1"
           list-type="picture">
@@ -27,9 +29,11 @@
       <el-form-item label="上传视频" prop="source">
         <el-upload
           ref="uploadVideo"
-          action="http://192.168.43.3:8080/upload/video"
+          :action="uploadVideoPath"
+          :headers="header"
           :before-upload="beforeVideoUpload"
           :on-success="handleVideoSuccess"
+          :on-error="handleVideoFail"
           :on-remove="handleVideoRemove"
           :limit="1"
           list-type="picture">
@@ -47,6 +51,7 @@
     import {isContainedSensitiveWord} from "../../../utils/func";
     import {addVideo} from "../../../api/api";
     import {mapState} from "vuex";
+    import {CONSTANT_VIDEO} from "../../../utils/constant";
 
     export default {
         name: "PublishVideo",
@@ -59,9 +64,8 @@
               type:'',
               source:''
             },
-            computed:{
-              ...mapState('user', ['user'])
-            },
+            videoPoster:{},
+            videoSource:{},
             videoTypes:['搞笑','游戏','生活','影视','科技','其他'],
             rules: {
               title: [{required: true, message: '请输入标题', trigger: 'blur'}],
@@ -69,36 +73,56 @@
               poster: [{required: true, message: '请上传封面', trigger: 'blur'}],
               type: [{required: true, message: '请选择一个类别', trigger: 'change'}],
               source: [{required: true, message: '请上传视频', trigger: 'blur'}]
-            }
+            },
+            uploadPicturePath:"http://127.0.0.1:8080/api/resource/upload/picture",
+            uploadVideoPath:"http://127.0.0.1:8080/api/resource/upload/video"
           }
+      },
+      computed:{
+        ...mapState('user', ['user']),
+        header() {
+          return {
+            "X-token":this.user.token
+          }
+        }
       },
       methods: {
         handlePosterRemove(file, fileList) {
           this.video.poster = ''
+          this.videoPoster= null
         },
         handlePosterSuccess(response, file, fileList) {
-          this.video.poster = fileList[0].response.data.picture.src
+          this.videoPoster = fileList[0].response.data
+          this.video.poster = this.videoPoster
+        },
+        handlePosterFail(err, file, fileList) {
+          this.$message.error("上传失败,网络出错或登录身份已失效")
         },
         handleVideoRemove(file, fileList) {
           this.video.source = ''
+          this.videoSource = ''
         },
         beforeVideoUpload(file) {
           const fileType = file.type
-          const isLt20M = file.size / 1024 / 1024 < 20 // 算出文件大小
-          if (!isLt20M) { // 这里我们限制文件大小为20M
-            this.$message.error('最大只能上传20M!')
-            this.$ref.upload.abort()
-            return isLt20M
+          const isLt100M = file.size / 1024 / 1024 < 100 // 算出文件大小
+          if (!isLt100M) { // 这里我们限制文件大小为100M
+            this.$message.error('最大只能上传100M!')
+            this.$refs['uploadVideo'].abort()
+            return isLt100M
           }
           if (fileType !== 'video/mp4') { // 限制文件类型
             this.$message.error('只能上传MP4格式视频!')
-            this.$ref.upload.abort()
+            this.$refs['uploadVideo'].abort()
             return false
           }
           return true
         },
         handleVideoSuccess(response, file, fileList) {
-          this.video.source = fileList[0].response.data.video.src
+          this.videoSource = fileList[0].response.data
+          this.video.source = this.videoSource
+        },
+        handleVideoFail(err, file, fileList) {
+          this.$message.error("上传失败,网络出错或登录身份已失效")
         },
         publish(formName) {
           this.$refs[formName].validate((valid) => {
@@ -109,8 +133,28 @@
                 this.$message({type: 'warning', message: '描述内容含有敏感词'})
               } else {
                 const params = {
-                  video: this.video,
-                  // userId: this.user.id
+                  video: {
+                    title: this.video.title,
+                    describe: this.video.describe,
+                    typeName: this.video.type,
+                    author: {
+                      id: this.user.id
+                    }
+                  },
+                  videoSource:{
+                    id: this.videoSource.id,
+                  },
+                  videoPoster:{
+                    id:this.videoPoster.id,
+                    title:this.videoPoster.title,
+                    date:this.videoPoster.date,
+                    url:this.videoPoster.url,
+                    topicType:CONSTANT_VIDEO,
+                    content:this.videoPoster.content,
+                    author: {
+                      id:this.user.id
+                    }
+                  }
                 }
                 console.log(params)
                 const vm = this

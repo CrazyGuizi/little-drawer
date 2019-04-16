@@ -23,7 +23,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://www.littledrawer.com', //对应自己的接口
+        target: 'http://127.0.0.1:8080/api', //对应自己的接口
         changeOrigin: true,
         ws: true,
         pathRewrite: {

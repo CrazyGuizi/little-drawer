@@ -1,13 +1,13 @@
 <template>
   <b-container id="news-item-three">
     <b-row id="news-title">
-      <a href="#" target="_blank" @click.prevent="getNewsDetail(id)"><h4>{{title}}</h4></a>
+      <h4 class="title-link" @click="getNewsDetail(id)">{{title}}</h4>
     </b-row>
     <b-row id="news-pic">
       <b-col v-for="(picUrl, index)  in picUrls" :key="index"><img  :src="picUrl" width="100" height="100"></b-col>
     </b-row>
 
-    <b-row><span id="author-time">{{author}} {{date}}</span></b-row>
+    <b-row><span id="author-time">{{author.nickName}} {{date}}</span></b-row>
   </b-container>
 </template>
 
@@ -29,9 +29,12 @@
         }
       },
       author: {
-        type: String,
-        default() {
-          return '土小贵'
+        type: Object,
+        default: function () {
+          return {
+            nickName: "土娃",
+            iconUrl: "https://hbimg.huabanimg.com/4f1b23073e6162f6cc057644da466bbb2980bce451cad-MRi6mO_fw658",
+          }
         }
       },
       date: {
@@ -72,6 +75,11 @@
    margin-left: 10px;
    display: block;
  }
+
+  .title-link:hover {
+    cursor: pointer;
+    color: dodgerblue;
+  }
 
   #news-pic img {
     object-fit: cover;

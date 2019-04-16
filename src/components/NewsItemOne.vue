@@ -2,8 +2,8 @@
   <b-container>
     <b-row id="news-item-one">
       <b-col cols="10" id="news-title">
-        <a href="#" @click.prevent="getNewsDetail(id)"><h4>{{title}}</h4></a>
-        <span id="author-time">{{author}} {{date}}</span>
+        <h4 class="title-link" @click="getNewsDetail(id)">{{title}}</h4>
+        <span id="author-time">{{author.nickName}} {{date}}</span>
       </b-col>
       <b-col cols="2">
         <img id="news-pic" :src="picUrls" width="100" height="100">
@@ -30,9 +30,11 @@
         }
       },
       author: {
-        type: String,
-        default() {
-          return '土小贵'
+        type: Object,
+        default: function () {
+          return {
+            nickName: '土小贵'
+          }
         }
       },
       date: {
@@ -62,6 +64,11 @@
     border-radius: 10px;
     background: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .title-link:hover {
+    cursor: pointer;
+    color: dodgerblue;
   }
 
   #left {

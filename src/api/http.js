@@ -32,7 +32,8 @@ const instance = axios.create({
 
 // 请求拦截器
 instance.interceptors.request.use(config => {
-  if (user.state.user.token) {
+  const token = user.state.user.token
+  if (token) {
     config.headers['X-Token'] = getToken()
   }
   return config

@@ -6,7 +6,6 @@ import {NAMESPACE_COMMON} from "../../utils/constant";
 
 const state = {
   // 首页视频集合
-  indexVideos: {},
   recommendVideos: [],
   funnyVideos: [],
   gameVideos: [],
@@ -20,18 +19,8 @@ const state = {
 }
 
 const mutations = {
-  [Types.VIDEO_SET_INDEX_VIDEOS](state, indexVideos) {
-    state.indexVideos = indexVideos
-    state.recommendVideos = indexVideos.recommendVideos
-    state.funnyVideos = indexVideos.funnyVideos
-    state.gameVideos = indexVideos.gameVideos
-    state.lifeVideos = indexVideos.lifeVideos
-    state.filmVideos = indexVideos.filmVideos
-    state.scienceVideos = indexVideos.scienceVideos
-    state.otherVideos = indexVideos.otherVideos
-  },
   [Types.VIDEO_SET_VIDEOS](state, data) {
-    const type = data.typeId
+    const type = data.typeIndex
     switch (type) {
       case Constant.CONSTANT_VIDEO_FUNNY_VIDEOS:
         state.funnyVideos = data.videos
@@ -78,22 +67,19 @@ const mutations = {
 }
 
 const actions = {
-  getIndexVideos({commit}) {
-    Api.getIndexVideos(indexVideos => {
-        commit(Types.VIDEO_SET_INDEX_VIDEOS, indexVideos)
-      },
-      errors => {
-      })
-  },
-  getRecommendVideos({commit}) {
-    Api.getRecommendVideos(videos => {
+  getRecommendVideos({commit}, params) {
+    Api.getRecommendVideos(params,videos => {
         commit(Types.VIDEO_SET_RECOMMEND_VIDEOS, videos)
       },
       errors => {
       })
   },
   getVideosByType({commit}, params) {
-    Api.getVideosByType(params, data => {
+    const data = {
+      typeIndex:params.typeIndex
+    }
+    Api.getVideosByType(params, videos => {
+      data.videos = videos
       commit(Types.VIDEO_SET_VIDEOS, data)
       commit(NAMESPACE_COMMON + Types.COMMON_SET_SPINNER, {isShow: false}, {root: true})
     }, errors => {
@@ -107,12 +93,16 @@ const actions = {
   getVideosByUserId({commit, rootState}) {
     const userId = rootState.user.user.id
     if (userId) {
-      Api.getVideosByUserId({userId: userId}, videos => commit(Types.VIDEO_SET_MY_VIDEOS, videos), errors => {
+      Api.getVideosByUserId({userId: userId}, videos => commit(Types.VIDEO_SET_MY_VIDEOS, videos),
+          errors => {
+        commit(Types.VIDEO_SET_MY_VIDEOS, [])
       })
     }
   },
   deleteVideoById({commit}, params) {
-    Api.deleteVideoById(params, r => commit(Types.VIDEO_REMOVE_MY_VIDEO, params), errors => {
+    Api.deleteVideoById(params, r => {
+      commit(Types.VIDEO_REMOVE_MY_VIDEO, {id:params.videoId})
+    }, errors => {
     })
   }
 }

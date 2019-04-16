@@ -6,12 +6,10 @@ const TokenKey = 'little-drawer'
 
 export function getToken() {
   let token = Cookies.get(TokenKey);
-  console.log('获取token：' + token)
   return token
 }
 
 export function setToken(token) {
-  console.log('设置token：' + token)
   return Cookies.set(TokenKey, token)
 }
 

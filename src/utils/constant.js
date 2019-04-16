@@ -29,6 +29,12 @@ export const CONSTANT_PICTURE = 2
 export const CONSTANT_NOVEL = 3
 export const CONSTANT_PERSON = 4
 
+export const CONSTANT_NUM_0 = 0
+export const CONSTANT_NUM_1 = 1
+export const CONSTANT_NUM_2 = 2
+export const CONSTANT_NUM_3 = 3
+export const CONSTANT_NUM_4 = 4
+
 export const CONSTANT_VIDEO_FUNNY_VIDEOS = 0
 export const CONSTANT_VIDEO_GAME_VIDEOS = 1
 export const CONSTANT_VIDEO_LIFE_VIDEOS = 2
@@ -61,6 +67,8 @@ export const DISPATCH_COMMON_DELETEREPLY = 'common/deleteReply'
 
 // user
 export const DISPATCH_USER_LOGOUT = 'user/logout'
+export const DISPATCH_USER_SETUSER = 'user/setUser'
+export const DISPATCH_USER_REGISTER = 'user/register'
 
 // news
 export const DISPATCH_NEWS_GETNEWSNAVS = 'news/getNewsNavs'
@@ -72,7 +80,6 @@ export const DISPATCH_NEWS_DELETENEWSBYID = 'news/deleteNewsById'
 
 
 // video
-export const DISPATCH_VIDEO_GETINDEXVIDEOS = 'video/getIndexVideos'
 export const DISPATCH_VIDEO_GETVIDEOSBYTYPE = 'video/getVideosByType'
 export const DISPATCH_VIDEO_GETRECOMMENDVIDEOS = 'video/getRecommendVideos'
 export const DISPATCH_VIDEO_GETVIDEOBYID = 'video/getVideoById'

@@ -60,11 +60,11 @@
   import Api from '@/api/api'
   import {mapState} from "vuex";
   import {
-    CONSTANT_NEWS, CONSTANT_VIDEO,
+    CONSTANT_VIDEO,
     DISPATCH_COMMON_DELETECOMMENT, DISPATCH_COMMON_DELETEREPLY,
     DISPATCH_COMMON_GETCOMMENTSBYTYPE,
     DISPATCH_VIDEO_GETVIDEOSBYUSERID
-  } from "@/utils/constant";
+  } from "../../../utils/constant";
 
   export default {
     name: "Comment",

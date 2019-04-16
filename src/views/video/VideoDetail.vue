@@ -6,8 +6,7 @@
         <span class="video-title ">{{video.title}}</span>
         <div class="mt-md-4">
           <b-embed type="video" aspect="16by9" controls :poster="video.posterUrl">
-            <source src="https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm" type="video/mp4">
-            <!--<source src="dev-stories.mp4" type="video/mp4">-->
+            <source :src="video.sourceUrl" type="video/mp4">
           </b-embed>
         </div>
 
@@ -34,7 +33,8 @@
         <!--评论-->
         <VideoCommentEditor ref="refVideoCommentEditor" @commit="sendComment"/>
 
-        <h4 class="mt-4 mb-4">全部评论</h4>
+        <h4 v-if="comments.length <= 0" class="mt-4 mb-4">暂无评论</h4>
+        <h4 v-else class="mt-4 mb-4">全部评论</h4>
 
         <VideoComment v-for="(comment,index) in comments" :key="index" v-bind="comment"/>
 
@@ -144,10 +144,13 @@
           const params = {
             topicType: CONSTANT_VIDEO,
             topicId: this.video.id,
-            userId: user.id,
+            fromUser:{
+              id: user.id
+            },
             content: content
           }
           this.$store.dispatch(DISPATCH_COMMON_SENDCOMMENT, params)
+
           this.$refs.refVideoCommentEditor.content = ''
         }
       },
@@ -156,7 +159,10 @@
             const likeParams = {
               topicType: CONSTANT_VIDEO,
               topicId:this.video.id,
-              userId: this.user.id,
+              status: 1,
+              liker:{
+                id: this.user.id
+              },
             }
             this.$store.dispatch(DISPATCH_COMMON_SETLIKESTATUS, likeParams)
             this.hasLiked = true

@@ -1,4 +1,4 @@
-import * as User from '../.././api/api'
+import * as Api from '../.././api/api'
 import * as Types from '../types'
 import {KEY_USER} from "../../utils/constant";
 import {getToken, removeToken, setToken} from "../../utils/func";
@@ -16,14 +16,14 @@ const state = {
 
 const actions = {
   login({commit}, userParams) {
-    User.login(userParams, user => {
+    Api.login(userParams, user => {
       commit(Types.USER_SET_USER, user)
     }, errors => {
       commit(Types.USER_CLEAR)
     })
   },
   register({commit}, userParams) {
-    User.register(userParams, user => {
+    Api.register(userParams, user => {
       commit(Types.USER_SET_USER, user)
     }, errors => {
       commit(Types.USER_CLEAR)
@@ -31,6 +31,9 @@ const actions = {
   },
   logout({commit}) {
     commit(Types.USER_CLEAR)
+  },
+  setUser({commit}, user) {
+    commit(Types.USER_SET_USER, user)
   }
 }
 
@@ -53,7 +56,9 @@ const mutations = {
   [Types.USER_GET_USER_FROM_LOCAL](state) {
     const s = localStorage.getItem(KEY_USER);
     if (s && state.user.username == '') {
-      state.user = JSON.parse(s)
+      if (getToken() != null && getToken() != undefined) {
+        state.user = JSON.parse(s)
+      }
     }
   }
 }

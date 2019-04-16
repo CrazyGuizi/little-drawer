@@ -1,13 +1,13 @@
 <template>
   <b-container id="news-item-one">
     <b-row  class="news-title">
-    <a href="#" @click.prevent="getNewsDetail(id)"><h4>{{title}}</h4></a>
+      <h4 class="title-link" @click="getNewsDetail(id)">{{title}}</h4>
     </b-row>
     <b-row class="news-content">
-      <p class="content">{{content}}</p>
+      <p class="content" v-html="content"></p>
     </b-row>
     <b-row class="author-time">
-      <p>{{author}} {{date}}</p>
+      <p>{{author.nickName}} {{date}}</p>
     </b-row>
   </b-container>
 
@@ -30,9 +30,11 @@
         }
       },
       author: {
-        type: String,
-        default() {
-          return '土小贵'
+        type: Object,
+        default:function() {
+          return {
+            nickName: '土小贵'
+          }
         }
       },
       date: {
@@ -69,6 +71,11 @@
   .news-title {
     margin-left: 10px;
     display: block;
+  }
+
+  .title-link:hover {
+    cursor: pointer;
+    color: dodgerblue;
   }
 
   .news-content {

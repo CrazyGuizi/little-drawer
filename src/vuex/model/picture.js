@@ -17,7 +17,7 @@ const mutations = {
   },
   [Types.PICTURE_REMOVE_MY_PICTURE](state, picture) {
     for (let i = 0; i < state.myPictures.length; i++) {
-      if(state.myPictures[i].id == picture.id) {
+      if(state.myPictures[i].id == picture.pictureId) {
         state.myPictures.splice(i,1)
         break
       }
@@ -41,6 +41,7 @@ const actions = {
       Api.getPicturesByUserId({userId: userId}, p => {
         commit(Types.PICTURE_SET_MY_PICTURES, p)
       }, e => {
+        commit(Types.PICTURE_SET_MY_PICTURES, [])
       })
     }
   },

@@ -29,14 +29,14 @@
     },
     mounted() {
       const pictureParams = {
-        page:6
+        pageSize:6
       }
       this.$store.dispatch(DISPATCH_PICTURE_GETPICTURES,pictureParams)
     },
     methods:{
       refresh() {
         const pictureParams = {
-          page:6
+          pageSize:6
         }
         this.$store.commit(NAMESPACE_COMMON + COMMON_SET_SPINNER, {isShow:true,type:'border', variant:'primary'})
         this.$store.dispatch(DISPATCH_PICTURE_GETPICTURES,pictureParams)

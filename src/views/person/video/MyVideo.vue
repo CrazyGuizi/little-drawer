@@ -54,7 +54,7 @@
   import {
     DISPATCH_VIDEO_DELETEVIDEOBYID,
     DISPATCH_VIDEO_GETVIDEOSBYUSERID
-  } from "@/utils/constant";
+  } from "../../../utils/constant";
   import {getVideoDetail} from "@/utils/func";
 
   export default {
@@ -87,7 +87,7 @@
           type:"warning"
         }).then(() => {
           const params = {
-            id:video.id
+            videoId:video.id
           }
           vm.$store.dispatch(DISPATCH_VIDEO_DELETEVIDEOBYID, params)
           this.$message({

@@ -20,8 +20,8 @@ export function getCommentsByUserId(params, onS, onF) {
 
 // 发表评论
 export async function sendComment(params, onS, onF) {
-  axios.post(Constant.COMMON_SEND_COMMENTS, params).then(res => {
-    onS(res.comment)
+  axios.post(Constant.COMMON_ADD_COMMENT, params).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -46,7 +46,7 @@ export function deleteReply(params, onS, onF) {
 
 // 发表回复
 export async function sendReply(params, onS, onF) {
-  axios.post(Constant.COMMON_SEND_REPLY, params).then(res => {
+  axios.post(Constant.COMMON_ADD_REPLY, params).then(res => {
     onS(res)
   }, err => {
     onF(err)
@@ -65,7 +65,7 @@ export async function report(params, onS, onF) {
 // 点赞
 export function getLikeStatus(params, onS, onF) {
   axios.post(Constant.COMMON_GET_LIKE_STATUS, params).then(res => {
-    onS(res.like)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -73,7 +73,7 @@ export function getLikeStatus(params, onS, onF) {
 
 export function setLikeStatus(params, onS, onF) {
   axios.post(Constant.COMMON_SET_LIKE_STATUS, params).then(res => {
-    onS(res.like)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -81,7 +81,7 @@ export function setLikeStatus(params, onS, onF) {
 
 export function getCollections(params, onS, onF) {
   axios.post(Constant.COMMON_GET_COLLECTIONS, params).then(res => {
-    onS(res.collections)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -89,7 +89,15 @@ export function getCollections(params, onS, onF) {
 
 export function addCollection(params, onS, onF) {
   axios.post(Constant.COMMON_ADD_COLLECTION, params).then(res => {
-    onS(res.collection)
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getCollectionStatus(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_COLLECTION_STATUS, params).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -99,7 +107,7 @@ export function addCollection(params, onS, onF) {
 // ****************************************************用户*****************************************************
 export function login(params, onSuccess, onFail) {
   axios.post(Constant.USER_LOGIN, params).then(res => {
-    onSuccess(res.user)
+    onSuccess(res)
   }, err => {
     onFail(err)
   })
@@ -107,7 +115,7 @@ export function login(params, onSuccess, onFail) {
 
 export function register(params, onSuccess, onFail) {
   axios.post(Constant.USER_REGISTER, params).then(r => {
-    onSuccess(r.user)
+    onSuccess(r)
   }, e => {
     onFail(e)
   })
@@ -124,8 +132,8 @@ export function validateUsername(params, onSuccess, onFail) {
 
 //****************************************************新闻*****************************************************
 export function getNewsNavs(onS, onF) {
-  axios.get(Constant.NEWS_GET_NEWS_NAVS).then(res => {
-    onS(res.navs)
+  axios.post(Constant.NEWS_GET_NEWS_NAVS).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -133,15 +141,15 @@ export function getNewsNavs(onS, onF) {
 
 export function searchNews(keyWord, onS, onF) {
   axios.post(Constant.NEWS_SEARCH_NEWS, keyWord).then(res => {
-    onS(res.newsList)
+    onS(res)
   }, err => {
     onF(err)
   });
 }
 
 export function getNewsList(culcom, onS, onF) {
-  axios.post(Constant.NEWS_GET_NEWS_LIST, culcom).then(res => {
-    onS(res.newsList)
+  axios.post(Constant.NEWS_GET_NEWS_BY_COLUMN, culcom).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -149,7 +157,7 @@ export function getNewsList(culcom, onS, onF) {
 
 export async function getNewsById(newsId, onS, onF) {
   axios.post(Constant.NEWS_GET_NEWS_BY_ID, newsId).then(res => {
-    onS(res.news)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -157,7 +165,7 @@ export async function getNewsById(newsId, onS, onF) {
 
 export function getNewsByUserId(userId, onS, onF) {
   axios.post(Constant.NEWS_GET_NEWS_BY_USER_ID, userId).then(res => {
-    onS(res.newsList)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -165,7 +173,7 @@ export function getNewsByUserId(userId, onS, onF) {
 
 export function addNews(params, onS, onF) {
   axios.post(Constant.NEWS_ADD_NEWS, params).then(res => {
-    onS(res.news)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -181,16 +189,16 @@ export function deleteNewsById(id, onS, onF) {
 
 export function updateNewsById(id, onS, onF) {
   axios.post(Constant.NEWS_UPDATE_NEWS_BY_ID, id).then(res => {
-    onS(res.news)
+    onS(res)
   }, err => {
     onF(err)
   });
 }
 
 // 推荐相关联的新闻,两个参数，一个是类别，一个是请求新闻个数
-export async function getNewsByColumn(params, onS, onF) {
-  axios.post(Constant.NEWS_GET__NEWS_BY_COLUMN, params).then(res => {
-    onS(res.newsList)
+export async function getNewsRandom(params, onS, onF) {
+  axios.post(Constant.NEWS_GET__NEWS_RANDOM, params).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -200,7 +208,7 @@ export async function getNewsByColumn(params, onS, onF) {
 // 获取敏感词库
 export function getSensitiveWords(onS, onF) {
   axios.get(Constant.GET_SENSITIVE_WORDS).then(res => {
-    onS(res.words)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -210,17 +218,9 @@ export function getSensitiveWords(onS, onF) {
 
 //****************************************************视频*****************************************************
 
-export function getIndexVideos(onS, onF) {
-  axios.get(Constant.VIDEO_GET_INDEX_VIDEOS).then(res => {
-    onS(res.indexVideos)
-  }, err => {
-    onF(err)
-  });
-}
-
-export function getRecommendVideos(onS, onF) {
-  axios.get(Constant.VIDEO_GET_RECOMMEND_VIDEOS).then(res => {
-    onS(res.videos)
+export function getRecommendVideos(params, onS, onF) {
+  axios.post(Constant.VIDEO_GET_RECOMMEND_VIDEOS, params).then(res => {
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -236,7 +236,7 @@ export function getVideosByType(params, onS, onF) {
 
 export function getVideosById(params, onS, onF) {
   axios.post(Constant.VIDEO_GET_VIDEO_BY_ID, params).then(res => {
-    onS(res.video)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -244,7 +244,7 @@ export function getVideosById(params, onS, onF) {
 
 export function getVideosByUserId(params, onS, onF) {
   axios.post(Constant.VIDEO_GET_VIDEOS_BY_USER_ID, params).then(res => {
-    onS(res.videos)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -260,7 +260,7 @@ export function deleteVideoById(params, onS, onF) {
 
 export function addVideo(params, onS, onF) {
   axios.post(Constant.VIDEO_ADD_VIDEO, params).then(res => {
-    onS(res.video)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -273,7 +273,7 @@ export function addVideo(params, onS, onF) {
 
 export function getPictures(params, onS, onF) {
   axios.post(Constant.PICTURE_GET_FUNNY_PICTURES, params).then(res => {
-    onS(res.pictures)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -281,7 +281,7 @@ export function getPictures(params, onS, onF) {
 
 export function getPicturesByUserId(params, onS, onF) {
   axios.post(Constant.PICTURE_GET_PICTURES_BY_USER_ID, params).then(res => {
-    onS(res.pictures)
+    onS(res)
   }, err => {
     onF(err)
   });
@@ -297,7 +297,7 @@ export function deletePictureById(params, onS, onF) {
 
 export function addPicture(params, onS, onF) {
   axios.post(Constant.PICTURE_ADD_PICTURE, params).then(res => {
-    onS(res.picture)
+    onS(res)
   }, err => {
     onF(err)
   });

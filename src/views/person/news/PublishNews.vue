@@ -9,24 +9,26 @@
           <el-option v-for="(c,index) in newsColumn" :key="index" :label="c" :value="c"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="上传图片">
+      <el-form-item label="新闻封面">
         <el-upload
           class="upload-demo"
           ref="upload"
-          action="http://192.168.43.3:8080/upload/picture"
-          :multiple="true"
+          :action="uploadPicturePath"
+          :headers="header"
+          :multiple="isMultiple"
           :on-remove="handleRemove"
+          :on-error="handleFail"
           :on-success="handleSuccess"
-          :file-list="fileList"
+          :file-list="coverPictureList"
           :auto-upload="false">
-          <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+          <el-button slot="trigger" size="small" type="primary">选取图片</el-button>
           <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
       </el-form-item>
       <el-form-item label="图片地址">
         <el-card>
-          <p v-for="(f,index) in fileListFilter" :key="index">图片：{{f.name}} 地址：{{f.response.data.picture.src}}</p>
+          <p v-for="(f,index) in fileListFilter" :key="index">图片：{{f.name}} 地址：{{f.response.data.url}}</p>
         </el-card>
       </el-form-item>
       <el-form-item label="新闻内容" prop="content">
@@ -48,6 +50,7 @@
   import {isContainedSensitiveWord} from "../../../utils/func";
   import {mapState} from "vuex";
   import {addNews} from "../../../api/api";
+  import {CONSTANT_NEWS} from "../../../utils/constant";
 
   export default {
     name: "PublishNews",
@@ -59,20 +62,27 @@
           column: '',
         },
         newsColumn: ['社会', '科技', '生活', '娱乐', '农业', '国际', '体育'],
-        fileList: [],
+        coverPictureList: [],
         rules: {
           title: [
             {required: true, message: '请输入标题', trigger: 'blur'}
           ],
           column: [{required: true, message: '请选择一个类别', trigger: 'change'}],
           content: [{required: true, message: '请输入内容', trigger: 'blur'}]
-        }
+        },
+        uploadPicturePath:'http://127.0.0.1:8080/api/resource/upload/picture',
+        isMultiple:true
       }
     },
     computed: {
       ...mapState('user', ['user']),
+      header() {
+        return {
+          "X-token":this.user.token
+        }
+      },
       fileListFilter() {
-        return this.fileList.filter(f => f.response != null && f.response != undefined)
+        return this.coverPictureList.filter(f => f.response != null && f.response != undefined)
       }
     },
     methods: {
@@ -80,15 +90,20 @@
         this.$refs.upload.submit();
       },
       handleRemove(file, fileList) {
-        this.fileList = fileList
+        this.coverPictureList = fileList
       },
       handleSuccess(response, file, fileList) {
-        this.fileList = fileList
+        this.coverPictureList = fileList
+      },
+      handleFail(err, file, fileList) {
+        this.$message.error("上传失败,网络出错或登录身份已失效")
       },
       onEditorChange({quill, html, text}) {
         this.news.content = html
       },
       publish(formName) {
+        console.log(this.news)
+        console.log(this.coverPictureList)
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (isContainedSensitiveWord(this.news.title)) {
@@ -96,10 +111,45 @@
             } else if (isContainedSensitiveWord(this.news.content)) {
               this.$message({type: 'warning', message: '新闻内容含有敏感词'})
             } else {
+
               const params = {
-                news: this.news,
-                userId: this.user.id
+                title:this.news.title,
+                column:this.news.column,
+                content:this.news.content,
+                author: {
+                  id:this.user.id
+                }
               }
+
+              // 判断图片封面的数量判断新闻的style
+              if (this.coverPictureList.length <= 0) {
+                params.style = 2
+              } else if (this.coverPictureList.length <= 2) {
+                params.style = 1
+              } else {
+                params.style = 3
+              }
+
+              // 更新后台图片，确保该条新闻能够找到这些图片
+              const newsCovers = []
+              if (this.coverPictureList != null && this.coverPictureList.length > 0) {
+                this.coverPictureList.forEach(p => {
+                  newsCovers.push({
+                    content: p.response.data.content,
+                    date: p.response.data.date,
+                    id: p.response.data.id,
+                    title: p.response.data.title,
+                    topicId: 0,
+                    topicType: CONSTANT_NEWS,
+                    url: p.response.data.url,
+                    author: {
+                      id:this.user.id
+                    }
+                  })
+                })
+              }
+              params.coverPictures = newsCovers
+
               const vm = this
               addNews(params, news => {
                   vm.$message({type: 'success', message: '发表成功'})
@@ -117,7 +167,7 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
         this.$refs['upload'].clearFiles()
-        this.fileList = []
+        this.coverPictureList = []
       }
     },
 

@@ -75,7 +75,7 @@
     mounted() {
       this.$store.dispatch(DISPATCH_NEWS_GETNEWSNAVS)
       this.$store.commit(NAMESPACE_NEWS + Types.NEWS_CLEAR_NEWS_LIST)
-      this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column: '头条', page: 1})
+      this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column: '头条', pageNum: 1, pageSize:10})
     },
     computed: {
       ...mapState('news', {
@@ -97,14 +97,14 @@
         this.isChangingTab = true;
         this.page = 1;
         this.column = column
-        this.$store.dispatch(DISPATCH_NEWS_CHANGECOLUMN, {column:this.column, page:this.page})
+        this.$store.dispatch(DISPATCH_NEWS_CHANGECOLUMN, {column:this.column, pageNum:this.page, pageSize:10})
         this.isChangingTab = false;
 
       },
       // 点击加载更多
       loadMore() {
         this.isLoadMore = true;
-        this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column:this.column, page:++this.page})
+        this.$store.dispatch(DISPATCH_NEWS_GETNEWSLIST, {column:this.column, pageNum:++this.page, pageSize:10})
         this.isLoadMore = false;
       }
     }
