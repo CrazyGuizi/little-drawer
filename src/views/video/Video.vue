@@ -1,8 +1,13 @@
 <template>
   <b-container>
-    <b-row>
-      <p>推荐视频</p>
-      <span class="refresh-recommend" @click="refreshRecommendVideos">刷新</span>
+    <b-row class="mt-md-4">
+      <b-col class="col-md-2">
+      <h5>推荐视频</h5>
+      </b-col>
+      <b-col class="col-md-9"><span></span></b-col>
+      <b-col class="col-md-1">
+        <h6 class="refresh-recommend" @click="refreshRecommendVideos">点击刷新</h6>
+      </b-col>
     </b-row>
     <b-row>
       <b-col class="col-md-4 mt-4" v-for="(video, index) in recommendVideos" :key="index">
@@ -134,7 +139,7 @@
       refreshRecommendVideos() {
         const params = {
           pageNum:1,
-          pageSize:8
+          pageSize:6
         }
 
         this.$store.dispatch(DISPATCH_VIDEO_GETRECOMMENDVIDEOS, params)
