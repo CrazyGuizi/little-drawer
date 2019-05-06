@@ -18,9 +18,10 @@ const state = {
     status: 0,
     date: '2019-4-3 09:19:38'
   },
-  collections:[],
+  collections: [],
   comments: [],
   commentType: 0,
+  reports: []
 }
 
 
@@ -66,10 +67,32 @@ const mutations = {
   [Types.COMMON_DELETE_COMMENT](state, comment) {
     for (let i = 0; i < state.comments.length; i++) {
       if (state.comments[i].id == comment.id && state.comments[i].type == comment.type) {
-        state.comments.splice(i,1)
+        state.comments.splice(i, 1)
         break
       }
     }
+  },
+  [Types.COMMON_ADD_REPORTS](state, reports) {
+    state.reports = reports
+  },
+  [Types.COMMON_DELETE_REPORT](state, report) {
+    if (report.id != undefined && report.id != null && report.id > 0) {
+      for (let i = 0; i < state.reports.length; i++) {
+        if (state.reports[i].id == report.id) {
+          state.reports.splice(i, 1)
+          break
+        }
+      }
+    } else {
+      for (let i = 0; i < state.reports.length; i++) {
+        if (state.reports[i].topicName == report.topicName
+          && state.reports[i].topicId == report.topicId) {
+          state.reports.splice(i, 1)
+          break
+        }
+      }
+    }
+
   }
 
 }
@@ -108,7 +131,7 @@ const actions = {
       commentId: params.commentId
     }
     Api.sendReply(params, reply => {
-      data.reply = reply
+        data.reply = reply
         commit(Types.COMMON_ADD_REPLY, data)
       },
       errors => {
@@ -134,22 +157,58 @@ const actions = {
       }))
   },
   getCollections({commit}, params) {
-    Api.getCollections(params, c => commit(Types.COMMON_GET_COLLECTIONS, c), e => {})
+    Api.getCollections(params, c => commit(Types.COMMON_GET_COLLECTIONS, c), e => {
+    })
   },
   addCollection({commit}, params) {
-    Api.addCollection(params, c => commit(Types.COMMON_ADD_COLLECTION, c), e =>{})
+    Api.addCollection(params, c => commit(Types.COMMON_ADD_COLLECTION, c), e => {
+    })
   },
   getCommentsByUserId({commit}, params) {
     Api.getCommentsByUserId(params, data => commit(Types.COMMON_SET_COMMENTS, data),
-        e => {
-          commit(Types.COMMON_SET_COMMENTS, [])
-        })
+      e => {
+        commit(Types.COMMON_SET_COMMENTS, [])
+      })
   },
   deleteComment({commit}, params) {
-    Api.deleteComment(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {})
+    Api.deleteComment(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {
+    })
   },
   deleteReply({commit}, params) {
-    Api.deleteReply(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {})
+    Api.deleteReply(params, r => commit(Types.COMMON_DELETE_COMMENT, params), e => {
+    })
+  },
+  getAllReports({commit}) {
+    Api.getAllReports(r => commit(Types.COMMON_ADD_REPORTS, r), e => {
+    })
+  },
+  getReportsByTopic({commit}, params) {
+    Api.getReportsByTopic(params, r => {
+        commit(Types.COMMON_ADD_REPORTS, r)
+      },
+      e => {
+      })
+  },
+  deleteReport({commit}, params) {
+    const report = {
+      id: params.reportId
+    }
+    Api.deleteReport(params, r => {
+        commit(Types.COMMON_DELETE_REPORT, report)
+      },
+      e => {
+      })
+  },
+  acceptReport({commit}, params) {
+    const report = {
+      topicName: params.topicName,
+      topicId: params.topicId
+    }
+    Api.acceptReport(params, r => {
+        commit(Types.COMMON_DELETE_REPORT, report)
+      },
+      e => {
+      })
   }
 }
 

@@ -129,6 +129,7 @@ export default new Router({
         {
           path: 'superAdmin',
           name: "SuperAdmin",
+          component: () => import('@/views/person/me/SuperAdmin.vue'),
           meta: {
             title: '超级管理员'
           }

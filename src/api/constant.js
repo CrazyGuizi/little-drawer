@@ -19,7 +19,12 @@ export const COMMON_DELETE_COMMENT = 'common/deleteComment'
 export const COMMON_ADD_REPLY = 'common/addReply'
 export const COMMON_DELETE_REPLY = 'common/deleteReply'
 // 举报
-export const COMMON_REPORT = 'common/report'
+export const COMMON_ADD_REPORT = "common/addReport";
+export const COMMON_DELETE_REPORT = "common/deleteReport";
+export const COMMON_GET_ALL_REPORTS = "common/getAllReports";
+export const COMMON_GET_REPORTS_BY_TOPIC = "common/getReportsByTopic";
+export const COMMON_ACCEPT_REPORT = "common/acceptReport";
+
 // 点赞
 export const COMMON_GET_LIKE_STATUS = 'common/getLikeStatus'
 export const COMMON_SET_LIKE_STATUS = 'common/setLikeStatus'

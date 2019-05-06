@@ -51,6 +51,7 @@
   } from "../utils/constant";
   import {isContainedSensitiveWord, showAlert} from "../utils/func";
   import {mapState} from "vuex";
+  import {addReport} from "../api/api";
 
   export default {
     name: "BaseComment",
@@ -159,8 +160,34 @@
       sendReply: function(params) {
         this.$store.dispatch(DISPATCH_COMMON_SENDREPLY, params)
       },
-      report() {
-        alert(id)
+      report: function (id){
+        const user = this.$store.state.user.user
+        if (user.id == 0) {
+          showAlert(this, '请先登录')
+          return
+        }
+
+
+        const params = {
+          topicId:id,
+          reporter:{
+            id:user.id
+          }
+        }
+
+        // 举报回复
+        if (this.toUser != null && JSON.stringify(this.toUser) != '{}') {
+          params.topicName = "回复"
+        } else {
+          // 举报评论
+          params.topicName = "评论"
+        }
+
+        addReport(params, r => {
+          alert("举报成功")
+        }, e => {
+          alert("举报失败")
+        })
       }
     }
   }

@@ -53,15 +53,6 @@ export async function sendReply(params, onS, onF) {
   });
 }
 
-// 举报
-export async function report(params, onS, onF) {
-  axios.post(Constant.COMMON_REPORT, params).then(res => {
-    onS(res)
-  }, err => {
-    onF(err)
-  });
-}
-
 // 点赞
 export function getLikeStatus(params, onS, onF) {
   axios.post(Constant.COMMON_GET_LIKE_STATUS, params).then(res => {
@@ -102,6 +93,52 @@ export function getCollectionStatus(params, onS, onF) {
     onF(err)
   });
 }
+
+// 举报
+export function addReport(params, onS, onF) {
+  axios.post(Constant.COMMON_ADD_REPORT, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function deleteReport(params, onS, onF) {
+  axios.post(Constant.COMMON_DELETE_REPORT, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getAllReports(onS, onF) {
+  axios.post(Constant.COMMON_GET_ALL_REPORTS, null).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+export function getReportsByTopic(params, onS, onF) {
+  axios.post(Constant.COMMON_GET_REPORTS_BY_TOPIC, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+export function acceptReport(params, onS, onF) {
+  axios.post(Constant.COMMON_ACCEPT_REPORT, params).then(res => {
+    onS(res)
+  }, err => {
+    onF(err)
+  });
+}
+
+
+
+
 
 
 // ****************************************************用户*****************************************************

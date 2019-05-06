@@ -4,7 +4,7 @@
       <h4 class="title-link" @click="getNewsDetail(id)">{{title}}</h4>
     </b-row>
     <b-row class="news-content">
-      <p class="content" v-html="content"></p>
+      <p class="content" ><span v-html="content"/> </p>
     </b-row>
     <b-row class="author-time">
       <p>{{author.nickName}} {{date}}</p>
